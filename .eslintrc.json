@@ -39,7 +39,7 @@
     "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/ban-types": "off",
-        "no-console": 1,  
+        "no-console": 0,  
         "react/jsx-filename-extension": [
             2, 
             { 
@@ -56,6 +56,12 @@
             "tsx": "never",
             "mjs": "never"
           }
-        ]
+        ],
+        // "prettier/prettier": [
+        //   "error",
+        //   {
+        //     "endOfLine": "auto"
+        //   }
+        // ]
     }
 }
