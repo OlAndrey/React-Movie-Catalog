@@ -3,7 +3,8 @@ import { AppBar, IconButton, Menu, MenuItem, Typography, Toolbar, Button, Box } 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Container } from "@mui/system";
 import Search from "../Search/Search";
-import Login from "../Login/Login";
+import Login from "../Auth/Login";
+import Auth from "../Auth/Auth";
 
 const Header: React.FunctionComponent = () => {
     const [auth, setAuth] = useState<boolean>(false);
@@ -62,7 +63,7 @@ const Header: React.FunctionComponent = () => {
                     </div>
                   :<Box>
                     <Button color="inherit" onClick={() => setOpen(true)}>Login</Button>
-                    <Login open={open} handleClose={closeWindow} />
+                    <Auth open={open} handleClose={closeWindow} />
                   </Box>
                 }
                 </Toolbar>

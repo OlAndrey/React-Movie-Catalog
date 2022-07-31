@@ -1,20 +1,11 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { ILogin } from "../../types/Auth";
 
-interface ILogin{
-    open: boolean,
-    handleClose: () => void
-}
-
-const Login: React.FunctionComponent<ILogin> = ({open, handleClose}) => {
+const Login: React.FunctionComponent<ILogin> = ({emailInputError, passwordInputError, handleForm, clearError, registry, handleClose}) => {
     const [emailInput, setEmailInput] = useState<string>("");
     const [passwordInput, setPasswordInput] = useState<string>("");
-    const [emailInputError, setEmailInputError] = useState<string>("");
-    const [passwordInputError, setPasswordInputError] = useState<string>("");
 
-    
-    const regularEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
-    const regularPassword = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
     const handleInputChange = (event: any) => {
         const target = event.target
@@ -24,47 +15,26 @@ const Login: React.FunctionComponent<ILogin> = ({open, handleClose}) => {
         switch (name) {
           case 'emailInput':
             setEmailInput(value)
-            setEmailInputError("")
+            clearError("emailInputError")
             break
           case 'passwordInput':
             setPasswordInput(value)
-            setPasswordInputError("")
+            clearError("passwordInputError")
             break
           default:
     
         }
     }
 
-    const handleForm = () => {
-        let error: boolean = false
-        if (emailInput === '') {
-            setEmailInputError('email is empty!')
-            error = true
-        }
-        if (passwordInput === '') {
-            setPasswordInputError('password is empty!')
-            error = true
-        }
-        if (!(emailInput === '') &&!regularEmail.test(emailInput)){
-            setEmailInputError('email is not correct!!')
-            error = true
-        }
-        if (!(passwordInput === '') && !regularPassword.test(passwordInput)){
-            setPasswordInputError('password is not correct!!')
-            error = true
-        }
-        if(!error)
-            handleClose()
-    }
     return (
-        <Dialog open={open} aria-labelledby="form-dialog-title">
+        <>
             <DialogTitle id="form-dialog-title" textAlign="center">Log in</DialogTitle>
             <DialogContent>
                 <TextField 
                     autoFocus
                     margin="dense"
                     id="name"
-                    label={"Email Adress"}
+                    label="Email Adress"
                     name='emailInput'
                     type="email"
                     onChange={handleInputChange}
@@ -85,13 +55,14 @@ const Login: React.FunctionComponent<ILogin> = ({open, handleClose}) => {
                     value={passwordInput}
                     fullWidth
                 />
-                <DialogContentText>Don't have account? Click Here!</DialogContentText>
+                <DialogContentText sx={{display: "inline-block"}}>Don't have account?</DialogContentText>
+                <Button onClick={registry}>Click Here!</Button>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined">Cancel</Button>
-                <Button onClick={handleForm} variant="contained">Log in</Button>
+                <Button onClick={() => handleForm(emailInput, passwordInput)} variant="contained">Log in</Button>
             </DialogActions>
-        </Dialog>
+        </>
     )
 }
 
