@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { AppBar, IconButton, Menu, MenuItem, Typography, Toolbar, Button } from "@mui/material";
+import { AppBar, IconButton, Menu, MenuItem, Typography, Toolbar, Button, Box } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Container } from "@mui/system";
 import Search from "../Search/Search";
+import Login from "../Login/Login";
 
 const Header: React.FunctionComponent = () => {
-    const [auth, setAuth] = useState<boolean>(true);
+    const [auth, setAuth] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(true);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -15,6 +17,10 @@ const Header: React.FunctionComponent = () => {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const closeWindow = () => {
+      setOpen(false)
+    }
 
     return (
         <AppBar>
@@ -54,7 +60,10 @@ const Header: React.FunctionComponent = () => {
                         <MenuItem onClick={handleClose}>LogOut</MenuItem>
                       </Menu>
                     </div>
-                  :<Button color="inherit">Login</Button>
+                  :<Box>
+                    <Button color="inherit" onClick={() => setOpen(true)}>Login</Button>
+                    <Login open={open} handleClose={closeWindow} />
+                  </Box>
                 }
                 </Toolbar>
             </Container>

@@ -54,9 +54,9 @@ const MovieItem: React.FunctionComponent<IMovies> = (props) => {
           
         <Box>
             {
-            props.genreIds.map(genreType => (
-                <Typography key={genreType} className={classes.genreType} mr={2}>{genres[genreType]}</Typography>
-            ))
+                props.genreIds.map(genreType => (
+                    <Typography key={genreType} className={classes.genreType} mr={2} mb={1}>{genres[genreType]}</Typography>
+                ))
             }
         </Box>
         </CardActions>
