@@ -25,6 +25,12 @@ export interface IMovies {
     overview: string
 }
 
+export interface IMoviesState {
+    isLoading: boolean,
+    isError: boolean,
+    movies: IMovies[]
+}
+
 export enum genres {
     'All' = 0,
     'Adventure' = 12,
@@ -70,3 +76,27 @@ export const genreList: { genre: string, id: string | number }[] = [
     {genre: 'Family', id: 10751},
     {genre: 'TV Movie', id: 10770},
 ];
+
+export enum MoviesActionsTypes {
+	FETCH_MOVIES = 'FETCH_MOVIES',
+	UPDATE_MOVIES = 'UPDATE_MOVIES',
+	UPDATE_IS_MOVIES_ERROR = 'UPDATE_IS_MOVIES_ERROR',
+}
+
+interface FetchCheaper {
+	type: MoviesActionsTypes.FETCH_MOVIES
+}
+
+interface UpdateCheaper {
+	type: MoviesActionsTypes.UPDATE_MOVIES,
+	payload: IMovies[],
+}
+
+interface UpdateIsCheaperError {
+	type: MoviesActionsTypes.UPDATE_IS_MOVIES_ERROR,
+}
+
+export type MoviesActionType =
+	FetchCheaper
+	| UpdateCheaper
+	| UpdateIsCheaperError
