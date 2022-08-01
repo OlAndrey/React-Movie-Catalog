@@ -8,7 +8,7 @@ import Auth from "../Auth/Auth";
 
 const Header: React.FunctionComponent = () => {
     const [auth, setAuth] = useState<boolean>(false);
-    const [open, setOpen] = useState<boolean>(true);
+    const [open, setOpen] = useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
