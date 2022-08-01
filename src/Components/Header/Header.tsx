@@ -3,7 +3,6 @@ import { AppBar, IconButton, Menu, MenuItem, Typography, Toolbar, Button, Box } 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Container } from "@mui/system";
 import Search from "../Search/Search";
-import Login from "../Auth/Login";
 import Auth from "../Auth/Auth";
 
 const Header: React.FunctionComponent = () => {
@@ -24,7 +23,7 @@ const Header: React.FunctionComponent = () => {
     }
 
     return (
-        <AppBar>
+        <AppBar sx={{position: "static"}}>
             <Container>
                 <Toolbar>
                 <Typography variant="h5" sx={{ flexGrow: 1 }}>Movie Catalog</Typography>
