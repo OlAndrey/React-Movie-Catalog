@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import Header from './Components/Header/Header';
+import Loader from './Components/Loader/Loader';
 import MovieList from './Components/MovieList/MovieList';
+import { checkAuthUser } from './store/action-creators/authActionCreators';
+import { AppStatetype } from './store/reducers';
 
-function App() {
+const App: React.FunctionComponent<{isCheckAuth: boolean} & {checkAuthUser: () => void}> = ({ isCheckAuth, checkAuthUser }) => {
 
+  useEffect(() => {
+    checkAuthUser()
+  }, [])
+
+  if(isCheckAuth)
+    return<Loader />
+
+    
   return (
     <>
       <Header />
@@ -13,4 +25,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = ( state: AppStatetype ) => {
+  return {
+      isCheckAuth: state.auth.isCheckAuth
+  }
+}
+
+export default connect(mapStateToProps, { checkAuthUser })(App);

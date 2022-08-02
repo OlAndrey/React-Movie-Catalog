@@ -26,13 +26,19 @@ export interface IRegistry{
 }
 
 export enum AuthActionsTypes {
+	CHECK = 'CHECK_LOADING',
 	CHECK_AUTH = 'CHECK_AUTH',
 	UPDATE_AUTH = 'UPDATE_AUTH',
 	UPDATE_IS_AUTH_ERROR = 'UPDATE_IS_AUTH_ERROR',
 }
 
+interface Check {
+	type: AuthActionsTypes.CHECK
+}
+
 interface CheckAuth {
-	type: AuthActionsTypes.CHECK_AUTH
+	type: AuthActionsTypes.CHECK_AUTH,
+    payload: UserType
 }
 
 interface UpdateAuth {
@@ -45,6 +51,7 @@ interface UpdateIsAuthError {
 }
 
 export type AuthActionType =
-	CheckAuth
+    Check
+	| CheckAuth
 	| UpdateAuth
 	| UpdateIsAuthError
