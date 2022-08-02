@@ -1,3 +1,7 @@
+import firebase from 'firebase/compat/app';
+
+export type UserType = firebase.User | any;
+
 export interface IAuth{
     open: boolean,
     handleClose: () => void
@@ -20,3 +24,27 @@ export interface IRegistry{
     clearError: (value: "emailInputError" | "passwordInputError" | "nameInputError") => void,
     handleClose: () => void
 }
+
+export enum AuthActionsTypes {
+	CHECK_AUTH = 'CHECK_AUTH',
+	UPDATE_AUTH = 'UPDATE_AUTH',
+	UPDATE_IS_AUTH_ERROR = 'UPDATE_IS_AUTH_ERROR',
+}
+
+interface CheckAuth {
+	type: AuthActionsTypes.CHECK_AUTH
+}
+
+interface UpdateAuth {
+	type: AuthActionsTypes.UPDATE_AUTH,
+    payload: UserType
+}
+
+interface UpdateIsAuthError {
+	type: AuthActionsTypes.UPDATE_IS_AUTH_ERROR,
+}
+
+export type AuthActionType =
+	CheckAuth
+	| UpdateAuth
+	| UpdateIsAuthError

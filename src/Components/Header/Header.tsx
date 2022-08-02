@@ -4,9 +4,15 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Container } from "@mui/system";
 import Search from "../Search/Search";
 import Auth from "../Auth/Auth";
+import { connect } from "react-redux";
+import { AppStatetype } from "../../store/reducers";
+import { logoutUser } from "../../store/action-creators/authActionCreators"
+import { UserType } from "../../types/Auth";
 
-const Header: React.FunctionComponent = () => {
-    const [auth, setAuth] = useState<boolean>(false);
+type IReact = React.FunctionComponent<{ user: UserType} & { logoutUser: () => Promise<void>;}>
+
+
+const Header: IReact = ({ user, logoutUser }) => {
     const [open, setOpen] = useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   
@@ -29,7 +35,7 @@ const Header: React.FunctionComponent = () => {
                 <Typography variant="h5" sx={{ flexGrow: 1 }}>Movie Catalog</Typography>
                 <Search />
                 {
-                  auth
+                  user
                   ?<div>
                       <IconButton
                         size="large"
@@ -57,12 +63,12 @@ const Header: React.FunctionComponent = () => {
                           onClose={handleClose}
                       >
                         <MenuItem onClick={handleClose}>Favorite</MenuItem>
-                        <MenuItem onClick={handleClose}>LogOut</MenuItem>
+                        <MenuItem onClick={logoutUser}>LogOut</MenuItem>
                       </Menu>
                     </div>
                   :<Box>
                     <Button color="inherit" onClick={() => setOpen(true)}>Login</Button>
-                    <Auth open={open} handleClose={closeWindow} />
+                    <Auth open={open} handleClose={closeWindow} user={user} />
                   </Box>
                 }
                 </Toolbar>
@@ -71,4 +77,10 @@ const Header: React.FunctionComponent = () => {
     )
 }
 
-export default Header;
+const mapStateToProps = ( state: AppStatetype ) => {
+  return {
+    user: state.auth.currentUser
+  }
+}
+
+export default connect(mapStateToProps, { logoutUser })(Header);

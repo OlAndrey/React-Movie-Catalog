@@ -56,7 +56,7 @@
             "tsx": "never",
             "mjs": "never"
           }
-        ],
+        ]
         // "prettier/prettier": [
         //   "error",
         //   {

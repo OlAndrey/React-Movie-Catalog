@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Alert, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { ILogin } from "../../types/Auth";
 
-const Login: React.FunctionComponent<ILogin> = ({emailInputError, passwordInputError, handleForm, clearError, registry, handleClose}) => {
+type login = React.FunctionComponent<ILogin & { isRegistry: boolean }>
+
+const Login: login = ({emailInputError, passwordInputError, isRegistry, handleForm, clearError, registry, handleClose}) => {
     const [emailInput, setEmailInput] = useState<string>("");
     const [passwordInput, setPasswordInput] = useState<string>("");
 
@@ -29,6 +31,7 @@ const Login: React.FunctionComponent<ILogin> = ({emailInputError, passwordInputE
     return (
         <>
             <DialogTitle id="form-dialog-title" textAlign="center">Log in</DialogTitle>
+            {isRegistry && <Alert severity="success">Your account has been registered!</Alert>}
             <DialogContent>
                 <TextField 
                     autoFocus
