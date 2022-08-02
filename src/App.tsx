@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import Header from './Components/Header/Header';
 import Loader from './Components/Loader/Loader';
+import Movie from './Components/Movie/Movie';
 import MovieList from './Components/MovieList/MovieList';
 import { checkAuthUser } from './store/action-creators/authActionCreators';
 import { AppStatetype } from './store/reducers';
@@ -16,11 +17,11 @@ const App: React.FunctionComponent<{isCheckAuth: boolean} & {checkAuthUser: () =
   if(isCheckAuth)
     return<Loader />
 
-    
+
   return (
     <>
       <Header />
-      <MovieList />
+      <Movie />
     </>
   );
 }
