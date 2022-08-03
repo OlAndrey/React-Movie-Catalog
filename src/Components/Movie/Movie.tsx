@@ -9,56 +9,63 @@ import { connect } from 'react-redux';
 import { genres, IMovies } from '../../types/movieList';
 import Loader from '../Loader/Loader';
 import { setTrailerId } from '../../store/action-creators/trailerActionCreators';
+import { fetchRecommendationListById } from '../../store/action-creators/recommendationMoviesActionCreator';
+import RecommendationMovies from '../RecommendationMovies/RecommendationMovies';
 
 type IReact = React.FunctionComponent<
-    { isLoading: boolean; trailerId: string, movies: IMovies[]} 
-    & { fetchRecomensList: () => Promise<void>; setTrailerId: (id: string) => Promise<void>}>
+    { isLoading: boolean; trailerId: string, movies: IMovies[], recommendMovies: IMovies[]} 
+    & { fetchRecomensList: () => Promise<void>; setTrailerId: (id: string) => Promise<void>; fetchRecommendationListById: (id: string) => Promise<void>}>
 
-const Movie: IReact = ({ isLoading, movies, trailerId, fetchRecomensList, setTrailerId}) => {
+const Movie: IReact = ({ isLoading, movies, trailerId, recommendMovies, fetchRecomensList, setTrailerId, fetchRecommendationListById}) => {
     const imgBaseUrl: string = 'https://image.tmdb.org/t/p/w500';
     const id = 616037;
 
     useEffect(() => {
         fetchRecomensList();
         setTrailerId(String(id))
+        fetchRecommendationListById(String(id))
     }, []);
 
     const opts = {
         height: '360',
         width: '100%',
         playerVars: {
-          // https://developers.google.com/youtube/player_parameters
           autoplay: 0, // 1 or 0 for autoplay on - off
         },
     };
 
     return (
-        <Container fixed sx={{margin: "3em auto",}}>
+        <Container sx={{ margin: "1em auto",}}>
         {
           isLoading
           ?<Loader />
-            :<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }} sx={{border: "2px solid #333", padding: "1em"}} justifyContent="space-around">
-                <Grid item xs={12} sm={12} md={8} >
-                    <Typography variant='h2'>{movies[0].title}</Typography>
+            :<Grid 
+                container 
+                spacing={{ xs: 2, md: 3 }} 
+                columns={{ xs: 4, sm: 12, md: 12 }} 
+                sx={{border: "2px solid #333", padding: "1em", margin: {xs: 0 }, width: {xs: "100%" }}} 
+                justifyContent="space-around">
+                <Grid item xs={12} sm={12} md={7} lg ={8}>
+                    <Typography variant='h2'>
+                        {movies[0].title}
+                    </Typography>
                     <Box component="div" sx={{display: { xs: 'block', sm: 'block', md: "none" }}}>
                         {boxContainer(imgBaseUrl + movies[0].posterPath)}
                     </Box>
-                    <Typography variant='body1' sx={{padding: ".75rem 0 .75em 0"}}>{movies[0].overview}</Typography>
+                    <Typography variant='body1' sx={{padding: ".75rem 0 .75em 0"}}>
+                        {movies[0].overview}
+                    </Typography>
                     <Typography variant='body1'>
                         Genres: &nbsp;&nbsp;&nbsp;&nbsp;
-                        {movies[0].genreIds.map(genreType => genres[genreType] + ", ")}
+                        {movies[0].genreIds.map(genreType => genres[genreType]).join(",  ")}
                     </Typography>
                     <Typography variant='body1' sx={{padding: ".5rem 0 .75em 0"}}>
                         Vote: &nbsp;&nbsp;&nbsp;&nbsp;
                         <StarRateIcon sx={{marginBottom: '-4px'}} />{movies[0].voteAverage}
                     </Typography>
-                    <YouTube
-                        videoId={trailerId}
-                        opts={opts}
-                        className="trailer-video"
-                        />
+                    <YouTube videoId={trailerId} opts={opts} />
                 </Grid>
-                <Grid item xs={12} sm={12} md={4} sx={{
+                <Grid item xs={12} sm={12} md={5} lg={4} sx={{
                     display: { xs: 'none', sm: 'none', md: "flex" },
                     flexDirection: 'column',
                     justifyContent: 'center'}}>
@@ -66,6 +73,8 @@ const Movie: IReact = ({ isLoading, movies, trailerId, fetchRecomensList, setTra
                 </Grid>
             </Grid>
         }
+        <Typography variant='h4' sx={{margin: "1rem 0"}} textAlign="center" >You may like</Typography>
+            {recommendMovies.length > 0 ? <RecommendationMovies movies={recommendMovies} /> :""}
         </Container>
         
     )
@@ -88,8 +97,9 @@ const mapStateToProps = ( state: AppStatetype ) => {
     return {
       isLoading: state.movieList.isLoading,
       movies: state.movieList.movies,
-      trailerId: state.trailer.trailerId
+      trailerId: state.trailer.trailerId,
+      recommendMovies: state.recommendList.recommendMovies
     }
 }
   
-export default connect(mapStateToProps, { fetchRecomensList, setTrailerId })(Movie);
+export default connect(mapStateToProps, { fetchRecomensList, setTrailerId, fetchRecommendationListById })(Movie);

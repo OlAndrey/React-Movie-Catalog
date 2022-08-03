@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import { authReducer } from './authReducers';
 import { movieListReducers } from './movieListReducers';
+import { recommendationMovieListReducers } from './recommendationReducers';
 import { trailerReducers } from './trailerReducers';
 
 export const rootReducer = combineReducers({
     auth: authReducer,
     movieList: movieListReducers,
-    trailer: trailerReducers
+    trailer: trailerReducers,
+    recommendList: recommendationMovieListReducers
 });
 
 export type AppStatetype = ReturnType<typeof rootReducer>;

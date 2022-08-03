@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux"
 import { makeStyles } from '@mui/styles';
 import { IMovies } from "../../types/movieList";
-import { Container, Grid } from "@mui/material";
-import MovieItem from "./MovieItem";
+import { Container } from "@mui/material";
 import GenreFilter from "../GenreFilter/GenreFilter";
 import Loader from "../Loader/Loader";
 import { fetchRecomensList, fetchMovieList } from "../../store/action-creators/moviesListActionCreators";
 import { AppStatetype } from "../../store/reducers";
+import RecommendationMovies from "../RecommendationMovies/RecommendationMovies";
 
 type IReact = React.FunctionComponent<{ isLoading: boolean; movies: IMovies[]} & { fetchRecomensList: () => Promise<void>; fetchMovieList: (id: number) => Promise<void>; }>
 
@@ -45,15 +45,7 @@ const MovieList: IReact = ({isLoading, movies, fetchMovieList, fetchRecomensList
             {
               isLoading
               ?<Loader />
-              :<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} justifyContent="space-around">
-                {
-                  movies.map((movie) => (
-                        <Grid item xs={12} sm={4} md={4} key={movie.id}>
-                          <MovieItem {...movie} />
-                        </Grid>
-                    ))
-                }
-                </Grid>
+              :<RecommendationMovies movies={movies} />
             }
         </Container>
     )
