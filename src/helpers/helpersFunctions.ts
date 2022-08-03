@@ -1,4 +1,4 @@
-import { IMovies, IPopular } from "../types/movieList";
+import { ICurent, IMovies, IPopular } from "../types/movieList";
 
 export const filterMovies = (data: IPopular[]): IMovies[] => {
     const result: IMovies[] = [];
@@ -16,3 +16,17 @@ export const filterMovies = (data: IPopular[]): IMovies[] => {
   
     return result;
 };
+
+export const filterMovie = (data: ICurent): ICurent => ({
+    backdrop_path: data.backdrop_path,
+    genres: data.genres,
+    homepage: data.homepage,
+    id: data.id,
+    overview: data.overview,
+    poster_path: data.poster_path,
+    release_date: data.release_date,
+    runtime: data.runtime,
+    tagline: data.tagline,
+    title: data.title,
+    vote_average: data.vote_average,
+});

@@ -1,6 +1,6 @@
 import { Container, FormControl, NativeSelect } from '@mui/material';
 import React from 'react';
-import { genreList } from '../../types/movieList';
+import { genreList } from "../../helpers/const";
 
 interface IFilter {
     changeFilter: (value: string) => void

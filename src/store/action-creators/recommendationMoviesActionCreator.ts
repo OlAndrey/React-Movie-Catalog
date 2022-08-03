@@ -11,7 +11,6 @@ export const fetchRecommendationListById = (id: string) => {
 
 		try {
 			const dataFromServer = await fetchRecommendationById(id)
-            console.log(dataFromServer)
 			dispatch({
 				type: RecommendMoviesActionsTypes.UPDATE_RECOMENDS_MOVIES,
 				payload: filterMovies(dataFromServer.data.results),

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, IconButton, Menu, MenuItem, Typography, Toolbar, Button, Box } from "@mui/material";
+import { AppBar, IconButton, Menu, MenuItem, Typography, Toolbar, Button, Box, Link } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Container } from "@mui/system";
 import Search from "../Search/Search";
@@ -32,7 +32,9 @@ const Header: IReact = ({ user, logoutUser }) => {
         <AppBar sx={{position: "static"}}>
             <Container>
                 <Toolbar>
-                <Typography variant="h5" sx={{ flexGrow: 1 }}>Movie Catalog</Typography>
+                <Typography variant="h5" sx={{ flexGrow: 1 }}>
+                  <Link href="/" sx={{color: "inherit", textDecoration: "none"}}>Movie Catalog</Link>
+                </Typography>
                 <Search />
                 {
                   user

@@ -1,6 +1,7 @@
 import { Dispatch } from 'react';
-import { IMovies, IPopular, MoviesActionsTypes, MoviesActionType } from "../../types/movieList";
-import { fetchMoviesWithGenre, fetchRecomends } from '../API/fetchMovies';
+import { filterMovies, filterMovie } from '../../helpers/helpersFunctions';
+import { MoviesActionsTypes, MoviesActionType } from "../../types/movieList";
+import { fetchMoviesWithGenre, fetchRecomends, fetchSelectMovieDetails } from '../API/fetchMovies';
 
 export const fetchRecomensList = () => {
 	const thunk = async (dispatch: Dispatch<MoviesActionType>) => {
@@ -13,6 +14,31 @@ export const fetchRecomensList = () => {
 			dispatch({
 				type: MoviesActionsTypes.UPDATE_MOVIES,
 				payload: filterMovies(dataFromServer.data.results),
+			})
+		} catch (error) {
+			console.error(`Can't proceed fetch movie list, ${error}`)
+
+			dispatch({
+				type: MoviesActionsTypes.UPDATE_IS_MOVIES_ERROR,
+			})
+		}
+	}
+
+	return thunk;
+}
+
+export const setSelectMovie = (id: number) => {
+	const thunk = async (dispatch: Dispatch<MoviesActionType>) => {
+		dispatch({
+			type: MoviesActionsTypes.FETCH_MOVIES,
+		})
+
+		try {
+			const dataFromServer = await fetchSelectMovieDetails(id)
+            console.log(dataFromServer)
+			dispatch({
+				type: MoviesActionsTypes.SELECT_MOVIE,
+				payload: filterMovie(dataFromServer.data),
 			})
 		} catch (error) {
 			console.error(`Can't proceed fetch movie list, ${error}`)
@@ -50,20 +76,3 @@ export const fetchMovieList = (genreId: number) => {
 
 	return thunk;
 }
-
-const filterMovies = (data: IPopular[]): IMovies[] => {
-    const result: IMovies[] = [];
-    data.map(movie => (
-      result.push({
-        backdropPath: movie.backdrop_path,
-        posterPath: movie.poster_path,
-        id: movie.id,
-        genreIds: movie.genre_ids.slice(0, 3),
-        title: movie.title,
-        voteAverage: movie.vote_average,
-        overview: movie.overview
-      })
-    ));
-  
-    return result;
-};

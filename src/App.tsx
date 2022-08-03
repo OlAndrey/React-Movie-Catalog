@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Header/Header';
 import Loader from './Components/Loader/Loader';
@@ -19,10 +20,14 @@ const App: React.FunctionComponent<{isCheckAuth: boolean} & {checkAuthUser: () =
 
 
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <Movie />
-    </>
+      <Routes>
+          <Route path="/movie/:id" element={<Movie />} />
+          <Route path="/" element={<MovieList />} />
+          <Route path="/*" element={<div>Page not found!</div>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

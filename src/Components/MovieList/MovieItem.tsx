@@ -1,7 +1,8 @@
 import React from "react";
 import { makeStyles } from '@mui/styles';
-import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Box, TextField } from "@mui/material";
-import { genres, IMovies } from "../../types/movieList";
+import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Box, Link  } from "@mui/material";
+import { IMovies } from "../../types/movieList";
+import { genres } from "../../helpers/const";
 
 const useStyles = makeStyles({ 
   card: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
     height: 196
   },
   cardActionArea: {
+    height: "100%",
     flexGrow: 1
   },
   cardContent: {
@@ -35,21 +37,23 @@ const MovieItem: React.FunctionComponent<IMovies> = (props) => {
   const classes = useStyles();
   return (
       <Card className={classes.card}>
-        <CardActionArea className={classes.cardActionArea}>
-          <CardMedia
-            className={classes.media}
-            image={imgBaseUrl + props.backdropPath}
-            title="Poster"
-          />
-          <CardContent className={classes.cardContent}>
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.title}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {props.overview}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+          <Link href={"/movie/" + props.id} variant="body2" sx={{display: 'block', height: "100%", textDecoration: "none", color: "inherit"}}>
+            <CardActionArea className={classes.cardActionArea} >
+                <CardMedia
+                    className={classes.media}
+                    image={imgBaseUrl + props.backdropPath}
+                    title="Poster"
+                />
+                <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                    {props.title}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                    {props.overview}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            </Link>
         <CardActions>
           
         <Box>
