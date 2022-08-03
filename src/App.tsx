@@ -6,6 +6,7 @@ import Header from './Components/Header/Header';
 import Loader from './Components/Loader/Loader';
 import Movie from './Components/Movie/Movie';
 import MovieList from './Components/MovieList/MovieList';
+import FourOFour from './Components/Page404/Page404';
 import { checkAuthUser } from './store/action-creators/authActionCreators';
 import { AppStatetype } from './store/reducers';
 
@@ -25,7 +26,7 @@ const App: React.FunctionComponent<{isCheckAuth: boolean} & {checkAuthUser: () =
       <Routes>
           <Route path="/movie/:id" element={<Movie />} />
           <Route path="/" element={<MovieList />} />
-          <Route path="/*" element={<div>Page not found!</div>} />
+          <Route path="/*" element={<FourOFour />} />
       </Routes>
     </BrowserRouter>
   );
