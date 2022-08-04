@@ -7,6 +7,7 @@ import Loader from './Components/Loader/Loader';
 import Movie from './Components/Movie/Movie';
 import MovieList from './Components/MovieList/MovieList';
 import FourOFour from './Components/Page404/Page404';
+import SearchMovies from './Components/SearchMovies/SearchMovies';
 import { checkAuthUser } from './store/action-creators/authActionCreators';
 import { AppStatetype } from './store/reducers';
 
@@ -25,6 +26,7 @@ const App: React.FunctionComponent<{isCheckAuth: boolean} & {checkAuthUser: () =
       <Header />
       <Routes>
           <Route path="/movie/:id" element={<Movie />} />
+          <Route path="/search/:movieName" element={<SearchMovies />} />
           <Route path="/" element={<MovieList />} />
           <Route path="/*" element={<FourOFour />} />
       </Routes>

@@ -4,6 +4,7 @@ const initState: IMoviesState = {
     isLoading: true,
     isError: false,
     movies: [],
+    searchMovies: [],
     selectMovie: null
 }
 
@@ -21,6 +22,13 @@ export const movieListReducers = (state: IMoviesState = initState, action: Movie
                 isLoading: false,
                 isError: true,
                 movies: action.payload
+            }
+        case MoviesActionsTypes.SET_SEARCH_MOVIES:
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                searchMovies: action.payload
             }
         case MoviesActionsTypes.SELECT_MOVIE:
             return {

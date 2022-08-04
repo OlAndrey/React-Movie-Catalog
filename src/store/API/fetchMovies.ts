@@ -13,3 +13,7 @@ export const fetchSelectMovieDetails = (id: number) => {
 export const fetchMoviesWithGenre = (genreId: number) => {
     return axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&page=1&vote_average.gte=6&with_genres=${genreId}`)
 }
+
+export const fetchSearchMovies= (query: string) => {
+    return axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&include_adult=false`)
+}

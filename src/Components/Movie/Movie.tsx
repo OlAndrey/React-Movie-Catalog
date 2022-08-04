@@ -37,7 +37,7 @@ const Movie: IReact = ({ isLoading, selectMovie, trailerId, recommendMovies, set
     };
 
     return (
-        <Container sx={{ margin: "1em auto",}}>
+        <Container sx={{ margin: "1em auto" }}>
         {
           isLoading
           ?<Loader />
@@ -57,14 +57,22 @@ const Movie: IReact = ({ isLoading, selectMovie, trailerId, recommendMovies, set
                             {boxContainer(imgBaseUrl + selectMovie.poster_path)}
                         </Box>
                         <Typography variant='body1' sx={{padding: ".75rem 0 .75em 0"}}>
-                            {selectMovie.overview}
+                            <b>About movie: </b>{selectMovie.overview}
+                        </Typography>
+                        <Typography variant='body1' sx={{padding: "0rem 0 .75em 0"}}>
+                            <b>Realese date: </b>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {selectMovie.release_date}
+                        </Typography>
+                        <Typography variant='body1' sx={{padding: "0rem 0 .75em 0"}}>
+                            <b>Runtime: </b>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {selectMovie.runtime} min.
                         </Typography>
                         <Typography variant='body1'>
-                            Genres: &nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>Genres: </b>&nbsp;&nbsp;&nbsp;&nbsp;
                             {selectMovie.genres.map(genreType => genreType.name).join(",  ")}
                         </Typography>
                         <Typography variant='body1' sx={{padding: ".5rem 0 .75em 0"}}>
-                            Vote: &nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>Vote: </b>&nbsp;&nbsp;&nbsp;&nbsp;
                             <StarRateIcon sx={{marginBottom: '-4px'}} />{selectMovie.vote_average}
                         </Typography>
                         <YouTube videoId={trailerId} opts={opts} />
