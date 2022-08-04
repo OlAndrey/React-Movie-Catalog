@@ -15,7 +15,7 @@ const SearchMovies: ReactComponent = ({isLoading, isError, searchMovies, setSear
 
     useEffect(() => {
         setSearchList(String(movieName))
-    }, [])
+    }, [movieName])
 
     return (
         <Container >

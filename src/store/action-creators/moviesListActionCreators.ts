@@ -35,7 +35,6 @@ export const setSearchList = (name: string) => {
 
 		try {
 			const dataFromServer = await fetchSearchMovies(name)
-            console.log(dataFromServer)
 			dispatch({
 				type: MoviesActionsTypes.SET_SEARCH_MOVIES,
 				payload: filterMovies(dataFromServer.data.results),
