@@ -8,7 +8,7 @@ interface IFilter {
 
 const GenreFilter: React.FunctionComponent<IFilter> = ({ changeFilter }) => {
   return(
-      <Container maxWidth={false} sx={{width: '170px', margin: "1.5rem auto"}}>
+      <Container maxWidth={false} sx={{width: '170px', margin: "5rem auto 1.75rem auto"}}>
         <FormControl>
             <NativeSelect
                 defaultValue={genreList[0].id}

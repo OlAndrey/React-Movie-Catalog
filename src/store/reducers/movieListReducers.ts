@@ -2,7 +2,10 @@ import { IMoviesState, MoviesActionsTypes, MoviesActionType } from "../../types/
 
 const initState: IMoviesState = {
     isLoading: true,
+    isLoadingUpdate: false,
     isError: false,
+    currentPage: 0,
+    totalPages: 0,
     movies: [],
     searchMovies: [],
     selectMovie: null
@@ -14,27 +17,49 @@ export const movieListReducers = (state: IMoviesState = initState, action: Movie
             return {
                 ...state,
                 isLoading: true,
-                isError: true
+                isError: false
             }
+        
+		case MoviesActionsTypes.FETCH_FOR_UPDATE_MOVIES:
+            return {
+                ...state,
+                isLoadingUpdate: true,
+                isError: false
+            }
+        
+        case MoviesActionsTypes.SET_MOVIES:
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                currentPage: action.currentPage,
+                totalPages: action.totalPages,
+                movies: action.payload
+            }
+
         case MoviesActionsTypes.UPDATE_MOVIES:
             return {
                 ...state,
                 isLoading: false,
-                isError: true,
-                movies: action.payload
+                isLoadingUpdate: false,
+                isError: false,
+                currentPage: action.currentPage,
+                totalPages: action.totalPages,
+                movies: state.movies.concat(action.payload)
             }
+        
         case MoviesActionsTypes.SET_SEARCH_MOVIES:
             return {
                 ...state,
                 isLoading: false,
-                isError: true,
+                isError: false,
                 searchMovies: action.payload
             }
         case MoviesActionsTypes.SELECT_MOVIE:
             return {
                 ...state,
                 isLoading: false,
-                isError: true,
+                isError: false,
                 selectMovie: action.payload
             }
         

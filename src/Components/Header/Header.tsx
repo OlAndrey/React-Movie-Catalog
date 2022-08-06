@@ -29,7 +29,7 @@ const Header: IReact = ({ user, logoutUser }) => {
     }
 
     return (
-        <AppBar sx={{position: "static"}}>
+        <AppBar sx={{width: "calc(100% - 15px)", marginRight: "15px"}}>
             <Container>
                 <Toolbar>
                 <Typography variant="h5" sx={{ flexGrow: 1 }}>

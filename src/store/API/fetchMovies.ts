@@ -2,8 +2,8 @@ import axios from "axios"
 
 const apiKey: String = 'b35f53caccfa4398c708083960012136';
 
-export const fetchRecomends = () => {
-    return axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US`)
+export const fetchRecomends = (page: number = 1) => {
+    return axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`)
 }
 
 export const fetchSelectMovieDetails = (id: number) => {

@@ -12,8 +12,36 @@ export const fetchRecomensList = () => {
 		try {
 			const dataFromServer = await fetchRecomends()
 			dispatch({
+				type: MoviesActionsTypes.SET_MOVIES,
+				payload: filterMovies(dataFromServer.data.results),
+                currentPage: dataFromServer.data.page,
+                totalPages: dataFromServer.data.total_pages
+			})
+		} catch (error) {
+			console.error(`Can't proceed fetch movie list, ${error}`)
+
+			dispatch({
+				type: MoviesActionsTypes.UPDATE_IS_MOVIES_ERROR,
+			})
+		}
+	}
+
+	return thunk;
+}
+
+export const updateRecomensList = (pageNumber: number) => {
+	const thunk = async (dispatch: Dispatch<MoviesActionType>) => {
+		dispatch({
+			type: MoviesActionsTypes.FETCH_FOR_UPDATE_MOVIES,
+		})
+
+		try {
+			const dataFromServer = await fetchRecomends(pageNumber)
+			dispatch({
 				type: MoviesActionsTypes.UPDATE_MOVIES,
 				payload: filterMovies(dataFromServer.data.results),
+                currentPage: dataFromServer.data.page,
+                totalPages: dataFromServer.data.total_pages
 			})
 		} catch (error) {
 			console.error(`Can't proceed fetch movie list, ${error}`)
@@ -88,6 +116,8 @@ export const fetchMovieList = (genreId: number) => {
 			dispatch({
 				type: MoviesActionsTypes.UPDATE_MOVIES,
 				payload: filterMovies(dataFromServer.data.results),
+                currentPage: dataFromServer.data.page,
+                totalPages: dataFromServer.data.total_pages
 			})
 		} catch (error) {
 			console.error(`Can't proceed fetch movie list, ${error}`)

@@ -27,7 +27,10 @@ export interface IMovies {
 
 export interface IMoviesState {
     isLoading: boolean,
+    isLoadingUpdate: boolean,
     isError: boolean,
+    currentPage: number,
+    totalPages: number,
     movies: IMovies[],
     searchMovies: IMovies[],
     selectMovie: ICurent | null
@@ -49,6 +52,8 @@ export interface ICurent {
 
 export enum MoviesActionsTypes {
 	FETCH_MOVIES = 'FETCH_MOVIES',
+	FETCH_FOR_UPDATE_MOVIES = 'FETCH_FOR_UPDATE_MOVIES',
+	SET_MOVIES = 'SET_MOVIES',
 	UPDATE_MOVIES = 'UPDATE_MOVIES',
     SET_SEARCH_MOVIES = 'SET_SEARCH_MOVIES',
 	SELECT_MOVIE = 'SELECT_MOVIE',
@@ -59,9 +64,21 @@ interface FetchMovie {
 	type: MoviesActionsTypes.FETCH_MOVIES
 }
 
+interface FetchForUPDATEMovie {
+	type: MoviesActionsTypes.FETCH_FOR_UPDATE_MOVIES
+}
+
+interface SetMovies {
+	type: MoviesActionsTypes.SET_MOVIES,
+	payload: IMovies[],
+    currentPage: number,
+    totalPages: number
+} 
 interface UpdateMovies {
 	type: MoviesActionsTypes.UPDATE_MOVIES,
 	payload: IMovies[],
+    currentPage: number,
+    totalPages: number
 }
 
 interface SetSearchMovies {
@@ -80,6 +97,8 @@ interface UpdateIsMovieError {
 
 export type MoviesActionType =
 	FetchMovie
+    | FetchForUPDATEMovie
+    | SetMovies
 	| UpdateMovies
     | SetSearchMovies
     | SelectMovie
