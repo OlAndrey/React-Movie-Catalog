@@ -10,15 +10,17 @@ import SearchMovies from './Components/SearchMovies/SearchMovies';
 import { checkAuthUser } from './store/action-creators/authActionCreators';
 import { AppStatetype } from './store/reducers';
 
-const App: React.FunctionComponent<{isCheckAuth: boolean} & {checkAuthUser: () => void}> = ({ isCheckAuth, checkAuthUser }) => {
+type MapStatePropsType = {isCheckAuth: boolean}
+type MapDispatchPropsType = {checkAuthUser: () => void}
+type AppPropsType = MapStatePropsType & MapDispatchPropsType
 
+const App: React.FC<AppPropsType> = ({ isCheckAuth, checkAuthUser }) => {
   useEffect(() => {
     checkAuthUser()
   }, [])
 
   if(isCheckAuth)
     return<Loader />
-
 
   return (
     <BrowserRouter>
@@ -33,10 +35,12 @@ const App: React.FunctionComponent<{isCheckAuth: boolean} & {checkAuthUser: () =
   );
 }
 
-const mapStateToProps = ( state: AppStatetype ) => {
+const mapStateToProps = ( state: AppStatetype ): MapStatePropsType => {
   return {
       isCheckAuth: state.auth.isCheckAuth
   }
 }
 
-export default connect(mapStateToProps, { checkAuthUser })(App);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStatetype>(
+  mapStateToProps, { checkAuthUser }
+)(App);

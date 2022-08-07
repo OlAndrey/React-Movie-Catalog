@@ -9,10 +9,12 @@ import { AppStatetype } from "../../store/reducers";
 import { logoutUser } from "../../store/action-creators/authActionCreators"
 import { UserType } from "../../types/Auth";
 
-type IReact = React.FunctionComponent<{ user: UserType} & { logoutUser: () => Promise<void>;}>
+type MapStatePropsType = { user: UserType }
+type MapDispatchPropsType = { logoutUser: () => void }
+type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
 
 
-const Header: IReact = ({ user, logoutUser }) => {
+const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
     const [open, setOpen] = useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   
@@ -79,10 +81,12 @@ const Header: IReact = ({ user, logoutUser }) => {
     )
 }
 
-const mapStateToProps = ( state: AppStatetype ) => {
+const mapStateToProps = ( state: AppStatetype ): MapStatePropsType => {
   return {
     user: state.auth.currentUser
   }
 }
 
-export default connect(mapStateToProps, { logoutUser })(Header);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStatetype>(
+  mapStateToProps, { logoutUser }
+)(Header);

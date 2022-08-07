@@ -2,11 +2,11 @@ import { Container, FormControl, NativeSelect } from '@mui/material';
 import React from 'react';
 import { genreList } from "../../helpers/const";
 
-interface IFilter {
+type GenreFilterPropsType = {
     changeFilter: (value: string) => void
 }
 
-const GenreFilter: React.FunctionComponent<IFilter> = ({ changeFilter }) => {
+const GenreFilter: React.FC<GenreFilterPropsType> = ({ changeFilter }) => {
   return(
       <Container maxWidth={false} sx={{width: '170px', margin: "5rem auto 1.75rem auto"}}>
         <FormControl>

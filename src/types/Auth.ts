@@ -1,8 +1,8 @@
 import firebase from 'firebase/compat/app';
 
-export type UserType = firebase.User | any;
+export type UserType = firebase.User | null;
 
-export interface IAuth{
+export type AuthType = {
     open: boolean,
     handleClose: () => void
 }

@@ -2,17 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@mui/material";
 import Login from "./Login";
 import Registry from "./Registry";
-import { IAuth, UserType } from "../../types/Auth";
+import { AuthType, UserType } from "../../types/Auth";
 import { AppStatetype } from "../../store/reducers";
 import { connect } from "react-redux";
 import { createUser, loginUser } from "../../store/action-creators/authActionCreators"
 
-type IReact = React.FunctionComponent<IAuth 
-        &{ isCheck: boolean, isError: boolean, user: UserType } 
-        & { createUser: (name: string, email: string, password: string) => Promise<void>; loginUser: (email: string, password: string) => Promise<void>;}>
+type MapStatePropsType = { isCheck: boolean, isError: boolean }
+
+type MapDispatchPropsType = { 
+    createUser: (name: string, email: string, password: string) => void
+    loginUser: (email: string, password: string) => void
+}
+
+type OwnPropsType = AuthType & { user: UserType }
+
+type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType
 
 
-const Auth: IReact = ({open, isCheck, isError, user, handleClose, createUser, loginUser}) => {
+const Auth: React.FC<PropsType> = ({open, isCheck, isError, user, handleClose, createUser, loginUser}) => {
     const [isNewUser, setIsNewUser] = useState<boolean>(false);
     const [isRegistry, setIsRegistry] = useState<boolean>(false);
     const [nameInputError, setNameInputError] = useState<string>("");
@@ -115,11 +122,14 @@ const Auth: IReact = ({open, isCheck, isError, user, handleClose, createUser, lo
     )
 }
 
-const mapStateToProps = ( state: AppStatetype ) => {
+const mapStateToProps = ( state: AppStatetype ): MapStatePropsType => {
     return {
         isCheck: state.auth.isCheck,
         isError: state.auth.isError
     }
 }
 
-export default connect(mapStateToProps, {createUser, loginUser})(Auth);
+export default connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStatetype>(
+    mapStateToProps,
+    { createUser, loginUser }
+)(Auth);

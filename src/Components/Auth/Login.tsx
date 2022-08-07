@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Alert, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { ILogin } from "../../types/Auth";
 
-type login = React.FunctionComponent<ILogin & { isRegistry: boolean }>
+type LoginPropsType = ILogin & { isRegistry: boolean }
 
-const Login: login = ({emailInputError, passwordInputError, isRegistry, handleForm, clearError, registry, handleClose}) => {
+const Login: React.FC<LoginPropsType> = ({emailInputError, passwordInputError, isRegistry, handleForm, clearError, registry, handleClose}) => {
     const [emailInput, setEmailInput] = useState<string>("");
     const [passwordInput, setPasswordInput] = useState<string>("");
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Button, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { IRegistry } from "../../types/Auth";
 
 const Registry: React.FunctionComponent<IRegistry> = ({nameInputError, emailInputError, passwordInputError, handleForm, clearError, handleClose})  => {

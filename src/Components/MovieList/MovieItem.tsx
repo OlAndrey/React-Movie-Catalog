@@ -10,7 +10,7 @@ import { useMovieStyles } from "./MovieStyle"
 
 const imgBaseUrl: string = 'https://image.tmdb.org/t/p/w500';
 
-const MovieItem: React.FunctionComponent<IMovies> = (props) => {
+const MovieItem: React.FC<IMovies> = (props) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const classes = useMovieStyles();
 

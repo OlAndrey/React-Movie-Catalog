@@ -8,9 +8,16 @@ import { IMovies } from '../../types/movieList';
 import Loader from '../Loader/Loader';
 import RecommendationMovies from '../RecommendationMovies/RecommendationMovies';
 
-type ReactComponent = React.FunctionComponent<{ isLoading: boolean, isError: boolean, searchMovies: IMovies[] } & { setSearchList: (name: string) => Promise<void> }>
+type MapStatePropsType = { 
+    isLoading: boolean
+    isError: boolean
+    searchMovies: IMovies[]
+}
 
-const SearchMovies: ReactComponent = ({isLoading, isError, searchMovies, setSearchList}) => {
+type MapDispatchPropsType = { setSearchList: (name: string) => void }
+type SearchMoviesPropsType = MapStatePropsType & MapDispatchPropsType
+
+const SearchMovies: React.FC<SearchMoviesPropsType> = ({isLoading, isError, searchMovies, setSearchList}) => {
     const { movieName } = useParams();
 
     useEffect(() => {
@@ -29,7 +36,7 @@ const SearchMovies: ReactComponent = ({isLoading, isError, searchMovies, setSear
     )
 }
 
-const mapStateToProps = (state: AppStatetype) => {
+const mapStateToProps = (state: AppStatetype): MapStatePropsType => {
     return {
         isLoading: state.movieList.isLoading,
         isError: state.movieList.isError,
@@ -37,4 +44,6 @@ const mapStateToProps = (state: AppStatetype) => {
     }
 }
 
-export default connect(mapStateToProps, {setSearchList})(SearchMovies);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStatetype>(
+    mapStateToProps, {setSearchList}
+)(SearchMovies);

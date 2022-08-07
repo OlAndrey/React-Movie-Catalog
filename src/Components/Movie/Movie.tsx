@@ -14,11 +14,22 @@ import { fetchRecommendationListById } from '../../store/action-creators/recomme
 import RecommendationMovies from '../RecommendationMovies/RecommendationMovies';
 import { useParams } from 'react-router-dom';
 
-type IReact = React.FunctionComponent<
-    { isLoading: boolean; trailerId: string, selectMovie: ICurent | null, recommendMovies: IMovies[]} 
-    & { setSelectMovie: (id: number) => Promise<void>; setTrailerId: (id: string) => Promise<void>; fetchRecommendationListById: (id: string) => Promise<void>}>
+type MapStatePropsType = { 
+    isLoading: boolean
+    trailerId: string
+    selectMovie: ICurent | null 
+    recommendMovies: IMovies[]
+} 
 
-const Movie: IReact = ({ isLoading, selectMovie, trailerId, recommendMovies, setSelectMovie, setTrailerId, fetchRecommendationListById}) => {
+type MapDispatchPropsType = { 
+    setSelectMovie: (id: number) => void
+    setTrailerId: (id: string) => void 
+    fetchRecommendationListById: (id: string) => void
+}
+
+type MoviePropsType = MapStatePropsType & MapDispatchPropsType
+
+const Movie: React.FC<MoviePropsType> = ({ isLoading, selectMovie, trailerId, recommendMovies, setSelectMovie, setTrailerId, fetchRecommendationListById}) => {
     let { id } = useParams();
     const imgBaseUrl: string = 'https://image.tmdb.org/t/p/w500';
 
@@ -106,7 +117,7 @@ const boxContainer = (imgUrl: string) => {
         />
 }
 
-const mapStateToProps = ( state: AppStatetype ) => {
+const mapStateToProps = ( state: AppStatetype ): MapStatePropsType => {
     return {
       isLoading: state.movieList.isLoading,
       selectMovie: state.movieList.selectMovie,
@@ -115,4 +126,7 @@ const mapStateToProps = ( state: AppStatetype ) => {
     }
 }
   
-export default connect(mapStateToProps, { setSelectMovie, setTrailerId, fetchRecommendationListById })(Movie);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStatetype>(
+    mapStateToProps, 
+    { setSelectMovie, setTrailerId, fetchRecommendationListById }
+)(Movie);

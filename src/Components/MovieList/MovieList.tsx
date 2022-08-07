@@ -9,9 +9,21 @@ import { fetchRecomensList, fetchMovieList, updateRecomensList } from "../../sto
 import { AppStatetype } from "../../store/reducers";
 import RecommendationMovies from "../RecommendationMovies/RecommendationMovies";
 
-type IReact = React.FunctionComponent<
-    { isLoading: boolean; isLoadingUpdate: boolean; currentPage: number; totalPages: number; movies: IMovies[]} 
-    & { fetchRecomensList: () => Promise<void>; fetchMovieList: (id: number) => Promise<void>; updateRecomensList: (page: number) => Promise<void>; }>
+type MapStatePropsType = { 
+  isLoading: boolean 
+  isLoadingUpdate: boolean 
+  currentPage: number 
+  totalPages: number 
+  movies: IMovies[]
+} 
+
+type MapDispatchPropsType = { 
+  fetchRecomensList: () => void 
+  fetchMovieList: (id: number) => void 
+  updateRecomensList: (page: number) => void 
+}
+
+type MovieListPropsType = MapStatePropsType & MapDispatchPropsType 
 
 const useStyles = makeStyles({ 
   grid: {
@@ -27,7 +39,7 @@ const useStyles = makeStyles({
   }
 })
   
-const MovieList: IReact = ({isLoading, isLoadingUpdate, movies, currentPage, totalPages, fetchMovieList, fetchRecomensList, updateRecomensList}) => {
+const MovieList: React.FC<MovieListPropsType> = ({isLoading, isLoadingUpdate, movies, currentPage, totalPages, fetchMovieList, fetchRecomensList, updateRecomensList}) => {
     const [selectGenre, setSelectGenre] = useState<number>(0)
     const movies1 = useMemo(() => movies, [movies]);
     const classes = useStyles();  
@@ -72,7 +84,7 @@ const MovieList: IReact = ({isLoading, isLoadingUpdate, movies, currentPage, tot
     )
 }
 
-const mapStateToProps = ( state: AppStatetype ) => {
+const mapStateToProps = ( state: AppStatetype ): MapStatePropsType => {
   return {
     isLoading: state.movieList.isLoading,
     isLoadingUpdate: state.movieList.isLoadingUpdate,
@@ -82,4 +94,7 @@ const mapStateToProps = ( state: AppStatetype ) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchRecomensList, fetchMovieList, updateRecomensList })(MovieList);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStatetype>(
+  mapStateToProps, 
+  { fetchRecomensList, fetchMovieList, updateRecomensList }
+)(MovieList);
