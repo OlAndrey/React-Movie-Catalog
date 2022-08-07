@@ -18,7 +18,7 @@ const SearchMovies: ReactComponent = ({isLoading, isError, searchMovies, setSear
     }, [movieName])
 
     return (
-        <Container >
+        <Container sx={{ margin: "4.2em auto 0 auto" }} >
             <Typography variant='h3' component='h2' textAlign='center' margin='.5em 0'>Result search: {movieName}</Typography>
             {
                 isLoading

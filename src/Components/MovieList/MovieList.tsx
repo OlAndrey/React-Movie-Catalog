@@ -68,7 +68,7 @@ const MovieList: IReact = ({isLoading, isLoadingUpdate, movies, currentPage, tot
               :<RecommendationMovies movies={movies1} />
             }
         </Container>
-        </div>
+      </div>
     )
 }
 

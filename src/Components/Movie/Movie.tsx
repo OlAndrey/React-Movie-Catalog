@@ -37,7 +37,7 @@ const Movie: IReact = ({ isLoading, selectMovie, trailerId, recommendMovies, set
     };
 
     return (
-        <Container sx={{ margin: "1em auto" }}>
+        <Container sx={{ margin: "4.2em auto 0 auto" }}>
         {
           isLoading
           ?<Loader />
