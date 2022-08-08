@@ -8,15 +8,17 @@ import MovieList from './Components/MovieList/MovieList';
 import FourOFour from './Components/Page404/Page404';
 import SearchMovies from './Components/SearchMovies/SearchMovies';
 import { checkAuthUser } from './store/action-creators/authActionCreators';
+import { getFavoriteMovies } from './store/action-creators/favoriteMoviesActionCreators';
 import { AppStatetype } from './store/reducers';
 
 type MapStatePropsType = {isCheckAuth: boolean}
-type MapDispatchPropsType = {checkAuthUser: () => void}
+type MapDispatchPropsType = {checkAuthUser: () => void; getFavoriteMovies: (userId: string) => void}
 type AppPropsType = MapStatePropsType & MapDispatchPropsType
 
-const App: React.FC<AppPropsType> = ({ isCheckAuth, checkAuthUser }) => {
+const App: React.FC<AppPropsType> = ({ isCheckAuth, checkAuthUser, getFavoriteMovies }) => {
   useEffect(() => {
     checkAuthUser()
+    getFavoriteMovies("234567")
   }, [])
 
   if(isCheckAuth)
@@ -42,5 +44,5 @@ const mapStateToProps = ( state: AppStatetype ): MapStatePropsType => {
 }
 
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStatetype>(
-  mapStateToProps, { checkAuthUser }
+  mapStateToProps, { checkAuthUser, getFavoriteMovies }
 )(App);

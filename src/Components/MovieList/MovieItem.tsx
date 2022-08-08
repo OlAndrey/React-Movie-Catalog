@@ -7,21 +7,39 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { IMovies } from "../../types/movieList";
 import { genres } from "../../helpers/const";
 import { useMovieStyles } from "./MovieStyle"
+import { connect } from "react-redux";
+import { AppStatetype } from "../../store/reducers";
+import { updateFavoriteMovies } from "../../store/action-creators/favoriteMoviesActionCreators";
+
+type MapStatePropsType = { favoriteMovies: string[] }
+type MapDispatchPropsType = { updateFavoriteMovies: (userId: string, newMovies: string[]) => void }
+
+type MovieItemProps = MapStatePropsType & MapDispatchPropsType & IMovies
 
 const imgBaseUrl: string = 'https://image.tmdb.org/t/p/w500';
 
-const MovieItem: React.FC<IMovies> = (props) => {
-    const [isFavorite, setIsFavorite] = useState(false);
+const MovieItem: React.FC<MovieItemProps> = (props) => {
     const classes = useMovieStyles();
+
+    const toggleIsFavorite = () => {
+        if(props.favoriteMovies.includes(String(props.id))){
+            const newFavoriteList = props.favoriteMovies.filter(id => id !== String(props.id))
+            props.updateFavoriteMovies("234567", newFavoriteList)
+        }
+        else{
+            const newFavoriteList = [...props.favoriteMovies, String(props.id)]
+            props.updateFavoriteMovies("234567", newFavoriteList)
+        }
+    }
 
     return (
         <Card className={classes.card} sx={{ transition: "3s all ease-in-out"}}>
             <div className="card-container">
                 <Link href={"/movie/" + props.id} variant="body2" sx={{display: 'block', height: "100%", textDecoration: "none", color: "inherit"}}></Link>
             </div>
-            <div className={isFavorite ? "favorite" : "no-favorite"} onClick={() => setIsFavorite(!isFavorite)}>
+            <div className={props.favoriteMovies.includes(String(props.id)) ? "favorite" : "no-favorite"} onClick={toggleIsFavorite}>
                 {
-                    isFavorite
+                    props.favoriteMovies.includes(String(props.id))
                         ?<FavoriteIcon sx={{color: 'red', }} />
                         :<FavoriteBorderIcon sx={{color: 'red', }} />
                 }
@@ -65,4 +83,12 @@ const MovieItem: React.FC<IMovies> = (props) => {
     );
 };
 
-export default MovieItem;
+const MapStateToProps = (state: AppStatetype): MapStatePropsType =>{
+    return{
+        favoriteMovies: state.favoriteMovies.favoriteMovies
+    }
+}
+
+export default connect<MapStatePropsType, MapDispatchPropsType, IMovies, AppStatetype>(
+    MapStateToProps, { updateFavoriteMovies }
+)(MovieItem); 
