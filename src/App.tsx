@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import FavoriteMovies from './Components/FavoriteMovies/FavoriteMovies';
 import Header from './Components/Header/Header';
 import Loader from './Components/Loader/Loader';
 import Movie from './Components/Movie/Movie';
-import MovieList from './Components/MovieList/MovieList';
 import FourOFour from './Components/Page404/Page404';
 import SearchMovies from './Components/SearchMovies/SearchMovies';
 import { checkAuthUser } from './store/action-creators/authActionCreators';
 import { getFavoriteMovies, clearFavoriteMovies } from './store/action-creators/favoriteMoviesActionCreators';
 import { AppStatetype } from './store/reducers';
 import { UserType } from './types/Auth';
+import RecommendationMovies from './Components/RecommendationMovies/RecommendationMovies';
 
 type MapStatePropsType = { isCheckAuth: boolean, user: UserType }
 type MapDispatchPropsType = {
@@ -43,8 +44,9 @@ const App: React.FC<AppPropsType> = ({ isCheckAuth, user, checkAuthUser, getFavo
       <Header />
       <Routes>
           <Route path="/movie/:id" element={<Movie />} />
+          <Route path="/favoriteMovies" element={<FavoriteMovies />} />
           <Route path="/search/:movieName" element={<SearchMovies />} />
-          <Route path="/" element={<MovieList />} />
+          <Route path="/" element={<RecommendationMovies />} />
           <Route path="/*" element={<FourOFour />} />
       </Routes>
     </BrowserRouter>

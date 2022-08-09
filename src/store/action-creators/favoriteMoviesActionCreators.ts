@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 import { FavoriteMoviesActionsTypes, FavoriteMoviesActionType } from '../../types/favoriteMovies';
 import { ref, set, child, get } from "firebase/database"
 import { database } from '../../firebase';
+import { IMovies } from '../../types/movieList';
 
 
 export const getFavoriteMovies = (userId: string) => {
@@ -35,7 +36,7 @@ export const getFavoriteMovies = (userId: string) => {
 	return thunk;
 }
 
-export const updateFavoriteMovies = (userId: string, newMovies: string[]) => {
+export const updateFavoriteMovies = (userId: string, newMovies: IMovies[]) => {
 	const thunk = async (dispatch: Dispatch<FavoriteMoviesActionType>) => {
 		try {
             dispatch({type: FavoriteMoviesActionsTypes.FETCH_FAVORITE_MOVIES})

@@ -1,7 +1,9 @@
+import { IMovies } from "./movieList"
+
 export interface IFavoriteMoviesState {
     isLoading: boolean
     isError: boolean
-    favoriteMovies: string[]
+    favoriteMovies: IMovies[]
 }
 
 
@@ -18,12 +20,12 @@ interface FetchFavoriteMovies {
 
 interface UpdateFavoriteMovies {
 	type: FavoriteMoviesActionsTypes.UPDATE_FAVORITE_MOVIES,
-	payload: string[],
+	payload: IMovies[],
 }
 
 interface ClearFavoriteMovies {
 	type: FavoriteMoviesActionsTypes.CLEAR_FAVORITE_MOVIES,
-	payload: string[],
+	payload: IMovies[],
 }
 
 interface UpdateIsFavoriteMoviesError {

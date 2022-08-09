@@ -1,12 +1,12 @@
-import { Container, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
+import { Container, Typography } from '@mui/material';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppStatetype } from '../../store/reducers';
 import { setSearchList } from '../../store/action-creators/moviesListActionCreators';
 import { IMovies } from '../../types/movieList';
 import Loader from '../Loader/Loader';
-import RecommendationMovies from '../RecommendationMovies/RecommendationMovies';
+import MovieList from '../MovieList/MovieList';
 
 type MapStatePropsType = { 
     isLoading: boolean
@@ -30,7 +30,7 @@ const SearchMovies: React.FC<SearchMoviesPropsType> = ({isLoading, isError, sear
             {
                 isLoading
                     ?<Loader />
-                    :<RecommendationMovies movies={searchMovies} />
+                    :<MovieList movies={searchMovies} />
             }
         </Container>
     )

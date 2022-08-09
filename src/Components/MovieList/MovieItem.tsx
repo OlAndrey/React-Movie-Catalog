@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/movieStyle.css";
 import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Box, Link  } from "@mui/material";
 import StarRateIcon from '@mui/icons-material/StarRate';
@@ -12,26 +12,34 @@ import { AppStatetype } from "../../store/reducers";
 import { updateFavoriteMovies } from "../../store/action-creators/favoriteMoviesActionCreators";
 import { UserType } from "../../types/Auth";
 
-type MapStatePropsType = { isLoading: boolean, favoriteMovies: string[] }
-type MapDispatchPropsType = { updateFavoriteMovies: (userId: string, newMovies: string[]) => void }
-type OwnPropsType = { user: UserType } & IMovies
+type MapStatePropsType = { isLoading: boolean, favoriteMovies: IMovies[] }
+type MapDispatchPropsType = { updateFavoriteMovies: (userId: string, newMovies: IMovies[]) => void }
+type OwnPropsType = { user: UserType, movie: IMovies }
 
 type MovieItemProps = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
 const imgBaseUrl: string = 'https://image.tmdb.org/t/p/w500';
 
-const MovieItem: React.FC<MovieItemProps> = (props) => {
+const MovieItem: React.FC<MovieItemProps> = ({ isLoading, user, movie, favoriteMovies, updateFavoriteMovies}) => {
+    const [movieRef, setState] = useState(false)
     const classes = useMovieStyles();
 
+    useEffect(() => {
+        if(favoriteMovies.filter(movieItem => movieItem.id === movie.id).length)
+            setState(true)
+        else
+            setState(false)
+    }, [favoriteMovies])
+
     const toggleIsFavorite = () => {
-        if(props.user){
-            if(props.favoriteMovies.includes(String(props.id))){
-                const newFavoriteList = props.favoriteMovies.filter(id => id !== String(props.id))
-                props.updateFavoriteMovies(props.user.uid, newFavoriteList)
+        if(user){
+            if(movieRef){
+                const newFavoriteList = favoriteMovies.filter(movieItem => movieItem.id !== movie.id)
+                updateFavoriteMovies(user.uid, newFavoriteList)
             }
             else{
-                const newFavoriteList = [...props.favoriteMovies, String(props.id)]
-                props.updateFavoriteMovies(props.user.uid, newFavoriteList)
+                const newFavoriteList = [...favoriteMovies, movie]
+                updateFavoriteMovies(user.uid, newFavoriteList)
             }
         }
     }
@@ -39,12 +47,12 @@ const MovieItem: React.FC<MovieItemProps> = (props) => {
     return (
         <Card className={classes.card} sx={{ transition: "3s all ease-in-out"}}>
             <div className="card-container">
-                <Link href={"/movie/" + props.id} variant="body2" sx={{display: 'block', height: "100%", textDecoration: "none", color: "inherit"}}></Link>
+                <Link href={"/movie/" + movie.id} variant="body2" sx={{display: 'block', height: "100%", textDecoration: "none", color: "inherit"}}></Link>
             </div>
-            {props.user && 
-                <button className={props.favoriteMovies.includes(String(props.id)) ? "favorite" : "no-favorite"} onClick={toggleIsFavorite} disabled={props.isLoading}>
+            {user && 
+                <button className={movieRef ? "favorite" : "no-favorite"} onClick={toggleIsFavorite} disabled={isLoading}>
                     {
-                        props.favoriteMovies.includes(String(props.id))
+                        movieRef
                             ?<FavoriteIcon sx={{color: 'red', }} />
                             :<FavoriteBorderIcon sx={{color: 'red', }} />
                     }
@@ -52,22 +60,22 @@ const MovieItem: React.FC<MovieItemProps> = (props) => {
                 </button>
             }
       
-            <Link href={"/movie/" + props.id} variant="body2" sx={{ height: "100%", textDecoration: "none", color: "inherit"}}>
+            <Link href={"/movie/" + movie.id} variant="body2" sx={{ height: "100%", textDecoration: "none", color: "inherit"}}>
                 <CardActionArea className={classes.cardActionArea} >{
-                        props.backdropPath
+                        movie.backdropPath
                         ?<CardMedia
                             className={classes.media}
-                            image={imgBaseUrl + props.backdropPath}
+                            image={imgBaseUrl + movie.backdropPath}
                             title="Poster"
                             />
                         :<Typography variant="h5" className={classes.media}>Poster not found</Typography>
                     }
                     <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h5" component="h2">
-                        {props.title}
+                        {movie.title}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                        {props.overview || "No overview"}
+                        {movie.overview || "No overview"}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -76,13 +84,13 @@ const MovieItem: React.FC<MovieItemProps> = (props) => {
           
                 <Box sx={{flexGrow: 1 }}>
                     {
-                        props.genreIds.map(genreType => (
+                        movie.genreIds.map(genreType => (
                             <Typography key={genreType} className={classes.genreType} mr={2} mb={1}>{genres[genreType]}</Typography>
                         ))
                     }
                 </Box>
                 <Typography variant='body1' className={classes.voteAverage}>
-                    <StarRateIcon sx={{marginBottom: '-4px'}} />{props.voteAverage.toFixed(1)}
+                    <StarRateIcon sx={{marginBottom: '-4px'}} />{movie.voteAverage.toFixed(1)}
                 </Typography>
             </CardActions>
         </Card>

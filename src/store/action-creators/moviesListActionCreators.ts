@@ -17,6 +17,10 @@ export const fetchRecomensList = () => {
                 currentPage: dataFromServer.data.page,
                 totalPages: dataFromServer.data.total_pages
 			})
+            dispatch({
+                type: MoviesActionsTypes.SET_BY_GENRE_TYPE_ID,
+                payload: "0"
+            })
 		} catch (error) {
 			console.error(`Can't proceed fetch movie list, ${error}`)
 
@@ -104,21 +108,34 @@ export const setSelectMovie = (id: number) => {
 	return thunk;
 }
 
-export const fetchMovieList = (genreId: number) => {
+export const fetchMovieList = (genreId: number, page: number = 1) => {
 	const thunk = async (dispatch: Dispatch<MoviesActionType>) => {
 		dispatch({
-			type: MoviesActionsTypes.FETCH_MOVIES,
+			type: MoviesActionsTypes.FETCH_FOR_UPDATE_MOVIES,
 		})
 
 		try {
-			const dataFromServer = await fetchMoviesWithGenre(genreId)
-
-			dispatch({
-				type: MoviesActionsTypes.UPDATE_MOVIES,
-				payload: filterMovies(dataFromServer.data.results),
-                currentPage: dataFromServer.data.page,
-                totalPages: dataFromServer.data.total_pages
-			})
+			const dataFromServer = await fetchMoviesWithGenre(genreId, page)
+            if(page === 1){
+                dispatch({
+                    type: MoviesActionsTypes.SET_MOVIES,
+                    payload: filterMovies(dataFromServer.data.results),
+                    currentPage: dataFromServer.data.page,
+                    totalPages: dataFromServer.data.total_pages
+                })
+                dispatch({
+                    type: MoviesActionsTypes.SET_BY_GENRE_TYPE_ID,
+                    payload: String(genreId)
+                })
+            }
+            else
+                dispatch({
+                    type: MoviesActionsTypes.UPDATE_MOVIES,
+                    payload: filterMovies(dataFromServer.data.results),
+                    currentPage: dataFromServer.data.page,
+                    totalPages: dataFromServer.data.total_pages
+                })
+			
 		} catch (error) {
 			console.error(`Can't proceed fetch movie list, ${error}`)
 

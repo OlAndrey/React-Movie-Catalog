@@ -11,7 +11,7 @@ import { genres } from "../../helpers/const";
 import Loader from '../Loader/Loader';
 import { setTrailerId } from '../../store/action-creators/trailerActionCreators';
 import { fetchRecommendationListById } from '../../store/action-creators/recommendationMoviesActionCreator';
-import RecommendationMovies from '../RecommendationMovies/RecommendationMovies';
+import MovieList from '../MovieList/MovieList';
 import { useParams } from 'react-router-dom';
 
 type MapStatePropsType = { 
@@ -98,7 +98,7 @@ const Movie: React.FC<MoviePropsType> = ({ isLoading, selectMovie, trailerId, re
             </Grid>
         }
         <Typography variant='h4' sx={{margin: "1rem 0"}} textAlign="center" >You may like</Typography>
-            {recommendMovies.length > 0 ? <RecommendationMovies movies={recommendMovies} /> : <Typography variant='h6' textAlign="center">No recommendations found!</Typography>}
+            {recommendMovies.length > 0 ? <MovieList movies={recommendMovies} /> : <Typography variant='h6' textAlign="center">No recommendations found!</Typography>}
         </Container>
         
     )

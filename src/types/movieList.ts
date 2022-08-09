@@ -29,6 +29,7 @@ export interface IMoviesState {
     isLoading: boolean,
     isLoadingUpdate: boolean,
     isError: boolean,
+    byGenreTypeId: string,
     currentPage: number,
     totalPages: number,
     movies: IMovies[],
@@ -56,6 +57,7 @@ export enum MoviesActionsTypes {
 	SET_MOVIES = 'SET_MOVIES',
 	UPDATE_MOVIES = 'UPDATE_MOVIES',
     SET_SEARCH_MOVIES = 'SET_SEARCH_MOVIES',
+    SET_BY_GENRE_TYPE_ID = 'SET_BY_GENRE_TYPE_ID',
 	SELECT_MOVIE = 'SELECT_MOVIE',
 	UPDATE_IS_MOVIES_ERROR = 'UPDATE_IS_MOVIES_ERROR',
 }
@@ -91,6 +93,11 @@ interface SelectMovie {
 	payload: ICurent,
 }
 
+interface SetByGenreTypeId {
+	type: MoviesActionsTypes.SET_BY_GENRE_TYPE_ID,
+	payload: string,
+}
+
 interface UpdateIsMovieError {
 	type: MoviesActionsTypes.UPDATE_IS_MOVIES_ERROR,
 }
@@ -102,4 +109,5 @@ export type MoviesActionType =
 	| UpdateMovies
     | SetSearchMovies
     | SelectMovie
+    | SetByGenreTypeId
 	| UpdateIsMovieError

@@ -4,6 +4,7 @@ const initState: IMoviesState = {
     isLoading: true,
     isLoadingUpdate: false,
     isError: false,
+    byGenreTypeId: '0',
     currentPage: 0,
     totalPages: 0,
     movies: [],
@@ -31,6 +32,7 @@ export const movieListReducers = (state: IMoviesState = initState, action: Movie
             return {
                 ...state,
                 isLoading: false,
+                isLoadingUpdate: false,
                 isError: false,
                 currentPage: action.currentPage,
                 totalPages: action.totalPages,
@@ -55,6 +57,13 @@ export const movieListReducers = (state: IMoviesState = initState, action: Movie
                 isError: false,
                 searchMovies: action.payload
             }
+            
+        case MoviesActionsTypes.SET_BY_GENRE_TYPE_ID:
+            return {
+                ...state,
+                byGenreTypeId: action.payload
+            }
+
         case MoviesActionsTypes.SELECT_MOVIE:
             return {
                 ...state,

@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { AppStatetype } from "../../store/reducers";
 import { logoutUser } from "../../store/action-creators/authActionCreators"
 import { UserType } from "../../types/Auth";
+import { useNavigate } from "react-router-dom";
 
 type MapStatePropsType = { user: UserType }
 type MapDispatchPropsType = { logoutUser: () => void }
@@ -17,6 +18,7 @@ type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
 const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
     const [open, setOpen] = useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const navigate = useNavigate();
   
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorEl(event.currentTarget);
@@ -66,7 +68,10 @@ const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
                         open={Boolean(anchorEl)}
                           onClose={handleClose}
                       >
-                        <MenuItem onClick={handleClose}>Favorite</MenuItem>
+                        <MenuItem onClick={() => {
+                          handleClose()
+                          navigate(`/favoriteMovies`, { replace: true });
+                        }}>Favorite</MenuItem>
                         <MenuItem onClick={() => { 
                           logoutUser()
                           handleClose()
