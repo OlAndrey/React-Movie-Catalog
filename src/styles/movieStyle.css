@@ -12,6 +12,7 @@
 
 .favorite,
 .no-favorite{
+    display: block;
     width: 3.5em;
     height: 3em;
     background: #fff;
@@ -21,30 +22,38 @@
     right: -50%;
     cursor: pointer;
     transition: .8s all ease-in-out;
+    border: none;
+    padding: 0;
     border-radius: 0 0 0 50%;
     z-index: 5001;
 }
 
+.favorite:disabled,
+.no-favorite:disabled{
+    cursor: default;
+}
+
+.favorite:focus,
+.no-favorite:focus{
+    outline: none;
+}
+
 .no-favorite svg{
     font-size: 1.5em;
-    margin: .45em 0 0 0.75em;
 }
 
 .no-favorite:hover svg{
     font-size: 2em;
-    margin: .25em 0 0 0.35em;
 }
 
 .favorite svg{
     color: red;
     font-size: 2em;
-    margin: .25em 0 0 0.35em;
 }
 
 .favorite:hover svg{
     color: rgb(255, 106, 106);
     font-size: 1.5em;
-    margin: .45em 0 0 0.75em;
 }
 
 @media (max-width: 768px){

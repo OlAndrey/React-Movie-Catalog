@@ -8,18 +8,32 @@ import MovieList from './Components/MovieList/MovieList';
 import FourOFour from './Components/Page404/Page404';
 import SearchMovies from './Components/SearchMovies/SearchMovies';
 import { checkAuthUser } from './store/action-creators/authActionCreators';
-import { getFavoriteMovies } from './store/action-creators/favoriteMoviesActionCreators';
+import { getFavoriteMovies, clearFavoriteMovies } from './store/action-creators/favoriteMoviesActionCreators';
 import { AppStatetype } from './store/reducers';
+import { UserType } from './types/Auth';
 
-type MapStatePropsType = {isCheckAuth: boolean}
-type MapDispatchPropsType = {checkAuthUser: () => void; getFavoriteMovies: (userId: string) => void}
+type MapStatePropsType = { isCheckAuth: boolean, user: UserType }
+type MapDispatchPropsType = {
+  checkAuthUser: () => void
+  getFavoriteMovies: (userId: string) => void
+  clearFavoriteMovies: () => void
+}
+
 type AppPropsType = MapStatePropsType & MapDispatchPropsType
 
-const App: React.FC<AppPropsType> = ({ isCheckAuth, checkAuthUser, getFavoriteMovies }) => {
+const App: React.FC<AppPropsType> = ({ isCheckAuth, user, checkAuthUser, getFavoriteMovies, clearFavoriteMovies }) => {
   useEffect(() => {
-    checkAuthUser()
-    getFavoriteMovies("234567")
-  }, [])
+    if(isCheckAuth)
+      checkAuthUser()
+    else{
+      if(user){
+        getFavoriteMovies(user.uid)
+      }
+      else{
+        clearFavoriteMovies()
+      }
+    }
+  }, [user])
 
   if(isCheckAuth)
     return<Loader />
@@ -39,10 +53,11 @@ const App: React.FC<AppPropsType> = ({ isCheckAuth, checkAuthUser, getFavoriteMo
 
 const mapStateToProps = ( state: AppStatetype ): MapStatePropsType => {
   return {
-      isCheckAuth: state.auth.isCheckAuth
+      isCheckAuth: state.auth.isCheckAuth,
+      user: state.auth.currentUser
   }
 }
 
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStatetype>(
-  mapStateToProps, { checkAuthUser, getFavoriteMovies }
+  mapStateToProps, { checkAuthUser, getFavoriteMovies, clearFavoriteMovies }
 )(App);

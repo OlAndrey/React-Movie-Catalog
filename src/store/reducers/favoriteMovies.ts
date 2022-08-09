@@ -16,6 +16,15 @@ export const favoriteMoviesReducers = (state: IFavoriteMoviesState = initState, 
             }
         case FavoriteMoviesActionsTypes.UPDATE_FAVORITE_MOVIES:
             return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                favoriteMovies: action.payload
+            }
+
+        case FavoriteMoviesActionsTypes.CLEAR_FAVORITE_MOVIES:
+            return {
+                ...state,
                 isLoading: false,
                 isError: false,
                 favoriteMovies: action.payload

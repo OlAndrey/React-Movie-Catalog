@@ -57,3 +57,9 @@ export const updateFavoriteMovies = (userId: string, newMovies: string[]) => {
 	return thunk;
 }
 
+export const clearFavoriteMovies = () => {
+    return {
+        type: FavoriteMoviesActionsTypes.CLEAR_FAVORITE_MOVIES,
+        payload: []
+    }
+}

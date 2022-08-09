@@ -10,11 +10,13 @@ import { useMovieStyles } from "./MovieStyle"
 import { connect } from "react-redux";
 import { AppStatetype } from "../../store/reducers";
 import { updateFavoriteMovies } from "../../store/action-creators/favoriteMoviesActionCreators";
+import { UserType } from "../../types/Auth";
 
-type MapStatePropsType = { favoriteMovies: string[] }
+type MapStatePropsType = { isLoading: boolean, favoriteMovies: string[] }
 type MapDispatchPropsType = { updateFavoriteMovies: (userId: string, newMovies: string[]) => void }
+type OwnPropsType = { user: UserType } & IMovies
 
-type MovieItemProps = MapStatePropsType & MapDispatchPropsType & IMovies
+type MovieItemProps = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
 const imgBaseUrl: string = 'https://image.tmdb.org/t/p/w500';
 
@@ -22,13 +24,15 @@ const MovieItem: React.FC<MovieItemProps> = (props) => {
     const classes = useMovieStyles();
 
     const toggleIsFavorite = () => {
-        if(props.favoriteMovies.includes(String(props.id))){
-            const newFavoriteList = props.favoriteMovies.filter(id => id !== String(props.id))
-            props.updateFavoriteMovies("234567", newFavoriteList)
-        }
-        else{
-            const newFavoriteList = [...props.favoriteMovies, String(props.id)]
-            props.updateFavoriteMovies("234567", newFavoriteList)
+        if(props.user){
+            if(props.favoriteMovies.includes(String(props.id))){
+                const newFavoriteList = props.favoriteMovies.filter(id => id !== String(props.id))
+                props.updateFavoriteMovies(props.user.uid, newFavoriteList)
+            }
+            else{
+                const newFavoriteList = [...props.favoriteMovies, String(props.id)]
+                props.updateFavoriteMovies(props.user.uid, newFavoriteList)
+            }
         }
     }
 
@@ -37,14 +41,16 @@ const MovieItem: React.FC<MovieItemProps> = (props) => {
             <div className="card-container">
                 <Link href={"/movie/" + props.id} variant="body2" sx={{display: 'block', height: "100%", textDecoration: "none", color: "inherit"}}></Link>
             </div>
-            <div className={props.favoriteMovies.includes(String(props.id)) ? "favorite" : "no-favorite"} onClick={toggleIsFavorite}>
-                {
-                    props.favoriteMovies.includes(String(props.id))
-                        ?<FavoriteIcon sx={{color: 'red', }} />
-                        :<FavoriteBorderIcon sx={{color: 'red', }} />
-                }
-                
-            </div>
+            {props.user && 
+                <button className={props.favoriteMovies.includes(String(props.id)) ? "favorite" : "no-favorite"} onClick={toggleIsFavorite} disabled={props.isLoading}>
+                    {
+                        props.favoriteMovies.includes(String(props.id))
+                            ?<FavoriteIcon sx={{color: 'red', }} />
+                            :<FavoriteBorderIcon sx={{color: 'red', }} />
+                    }
+                    
+                </button>
+            }
       
             <Link href={"/movie/" + props.id} variant="body2" sx={{ height: "100%", textDecoration: "none", color: "inherit"}}>
                 <CardActionArea className={classes.cardActionArea} >{
@@ -85,10 +91,11 @@ const MovieItem: React.FC<MovieItemProps> = (props) => {
 
 const MapStateToProps = (state: AppStatetype): MapStatePropsType =>{
     return{
+        isLoading: state.favoriteMovies.isLoading,
         favoriteMovies: state.favoriteMovies.favoriteMovies
     }
 }
 
-export default connect<MapStatePropsType, MapDispatchPropsType, IMovies, AppStatetype>(
+export default connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStatetype>(
     MapStateToProps, { updateFavoriteMovies }
 )(MovieItem); 

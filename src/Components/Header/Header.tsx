@@ -67,7 +67,10 @@ const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
                           onClose={handleClose}
                       >
                         <MenuItem onClick={handleClose}>Favorite</MenuItem>
-                        <MenuItem onClick={logoutUser}>LogOut</MenuItem>
+                        <MenuItem onClick={() => { 
+                          logoutUser()
+                          handleClose()
+                        }}>LogOut</MenuItem>
                       </Menu>
                     </div>
                   :<Box>
