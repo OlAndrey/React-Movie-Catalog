@@ -53,15 +53,15 @@ const Movie: React.FC<MoviePropsType> = ({ isLoading, selectMovie, trailerId, re
           isLoading
           ?<Loader />
             :selectMovie === null
-                ?<Typography variant='h2' textAlign="center">No movie found!</Typography>
+                ?<Typography variant="h2" textAlign="center">No movie found!</Typography>
                 :<Grid 
                     container 
                     spacing={{ xs: 2, md: 3 }} 
                     columns={{ xs: 4, sm: 12, md: 12 }} 
-                    sx={{border: "2px solid #333", padding: "1em", margin: {xs: 0 }, width: {xs: "100%" }}} 
+                    sx={{ margin: {xs: 0 }, width: {xs: "100%" }}} 
                     justifyContent="space-around">
                     <Grid item xs={12} sm={12} md={7} lg ={8}>
-                        <Typography variant='h2'>
+                        <Typography variant='h2' sx={{ fontSize: "2.5em", fontWeight: "500" }}>
                             {selectMovie.title}
                         </Typography>
                         <Box component="div" sx={{display: { xs: 'block', sm: 'block', md: "none" }}}>

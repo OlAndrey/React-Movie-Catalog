@@ -45,7 +45,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ isLoading, user, movie, favoriteM
     }
 
     return (
-        <Card className={classes.card} sx={{ transition: "3s all ease-in-out"}}>
+        <Card className={classes.card} sx={{ color: "rgba(250, 250, 250, 0.87)", background: "#000", transition: "3s all ease-in-out"}}>
             <div className="card-container">
                 <Link href={"/movie/" + movie.id} variant="body2" sx={{display: 'block', height: "100%", textDecoration: "none", color: "inherit"}}></Link>
             </div>
@@ -74,7 +74,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ isLoading, user, movie, favoriteM
                         <Typography gutterBottom variant="h5" component="h2">
                         {movie.title}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" component="p">
                         {movie.overview || "No overview"}
                         </Typography>
                     </CardContent>

@@ -21,7 +21,9 @@ const FavoriteMovies: React.FC<MapStatePropsType> = ({isLoading, isError, favori
             {
                 isLoading
                     ?<Loader />
-                    :<MovieList movies={favoriteMoviesId} />
+                    :favoriteMoviesId.length
+                        ?<MovieList movies={favoriteMoviesId} />
+                        :<Typography variant='h4' textAlign='center' margin='.5em 0'>List of favorite movies is empty!</Typography>
             }
         </Container>
     )

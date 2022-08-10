@@ -4,6 +4,7 @@ import { InputBase } from "@mui/material";
 
 const SearchBlock = styled('div')(({ theme }) => ({
     position: 'relative',
+    height: "2.25em",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {

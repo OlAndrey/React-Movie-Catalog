@@ -1,9 +1,9 @@
 .card-container{
-    background: rgba(0, 0, 0, 0.14) no-repeat fixed left bottom;
+    background: rgba(255, 255, 255, 0.2) no-repeat fixed left bottom;
     position: absolute; 
     top: -120%; 
     right: -120%;
-    z-index: 5000;
+    z-index: 1000;
     width: 120%;
     height: 120%;
     border-radius: 0 0 20% 20%;
@@ -25,7 +25,7 @@
     border: none;
     padding: 0;
     border-radius: 0 0 0 50%;
-    z-index: 5001;
+    z-index: 1001;
 }
 
 .favorite:disabled,

@@ -30,7 +30,6 @@ const useStyles = makeStyles({
   grid: {
     position: "absolute",
     left: 0,
-    background: "#fff",
     width: "100%",
     flexGrow: 1,
     height: "1px",
@@ -65,10 +64,8 @@ const RecommendationMovies: React.FC<RecommendationMoviesPropsType> = ({isLoadin
       const scrollTop = event.currentTarget.scrollTop;
       const currentPosition = ((scrollTop + containerHeight) / scrollHeight) * 100;
       if(!(currentPosition < 99) && currentPage !== totalPages && !isLoadingUpdate){
-        if(+byGenreTypeId > 0){
+        if(+byGenreTypeId > 0)
           fetchMovieList(+byGenreTypeId, currentPage + 1)
-          console.log(1)
-        }
         else
           updateRecomensList(currentPage + 1)
       }
