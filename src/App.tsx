@@ -12,6 +12,7 @@ import { getFavoriteMovies, clearFavoriteMovies } from './store/action-creators/
 import { AppStatetype } from './store/reducers';
 import { UserType } from './types/Auth';
 import RecommendationMovies from './Components/RecommendationMovies/RecommendationMovies';
+import Footer from './Components/Footer/Footer';
 
 type MapStatePropsType = { isCheckAuth: boolean, user: UserType }
 type MapDispatchPropsType = {
@@ -49,6 +50,7 @@ const App: React.FC<AppPropsType> = ({ isCheckAuth, user, checkAuthUser, getFavo
           <Route path="/" element={<RecommendationMovies />} />
           <Route path="/*" element={<FourOFour />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

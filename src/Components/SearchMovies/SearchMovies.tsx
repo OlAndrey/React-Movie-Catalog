@@ -25,7 +25,7 @@ const SearchMovies: React.FC<SearchMoviesPropsType> = ({isLoading, isError, sear
     }, [movieName])
 
     return (
-        <Container sx={{ margin: "4.2em auto 0 auto" }} >
+        <Container sx={{ margin: "4.2em auto 0 auto", flexGrow: 1  }} >
             <Typography variant='h3' component='h2' textAlign='center' margin='.5em 0'>Result search: {movieName}</Typography>
             {
                 isLoading

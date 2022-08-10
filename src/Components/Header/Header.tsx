@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../styles/menu.css"
 import { AppBar, IconButton, Menu, MenuItem, Typography, Toolbar, Button, Box, Link } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { Container } from "@mui/system";
 import Search from "../Search/Search";
 import Auth from "../Auth/Auth";
@@ -87,7 +88,10 @@ const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
             <Container>
                 <Toolbar>
                 <Typography variant="h5" sx={{ flexGrow: 1 }}>
-                  <Link href="/" sx={{color: "inherit", textDecoration: "none"}}>Movie Catalog</Link>
+                  <Link href="/" sx={{ display: "flex", alignItems: "center", color: "inherit", textDecoration: "none"}}>
+                    <LiveTvIcon fontSize="large" />
+                    Movie Catalog
+                  </Link>
                 </Typography>
                   <Box sx={{ display: {xs: "block", md: "none"}}}>
                     <input id="menu-toggle" type="checkbox" />

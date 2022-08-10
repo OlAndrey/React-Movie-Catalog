@@ -48,7 +48,7 @@ const Movie: React.FC<MoviePropsType> = ({ isLoading, selectMovie, trailerId, re
     };
 
     return (
-        <Container sx={{ margin: "4.2em auto 0 auto" }}>
+        <Container sx={{ margin: "4.2em auto 0 auto", flexGrow: 1 }}>
         {
           isLoading
           ?<Loader />
