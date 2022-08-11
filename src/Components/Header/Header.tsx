@@ -84,7 +84,7 @@ const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
     
 
     return (
-        <AppBar sx={{width: "calc(100% - 0.95em)", background: "#000", marginRight: "0.95em"}}>
+        <AppBar sx={{width: "100%", background: "#000"}}>
             <Container>
                 <Toolbar>
                 <Typography variant="h5" sx={{ flexGrow: 1 }}>

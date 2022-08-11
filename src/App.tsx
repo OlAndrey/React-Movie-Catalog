@@ -45,7 +45,7 @@ const App: React.FC<AppPropsType> = ({ isCheckAuth, user, checkAuthUser, getFavo
       <Header />
       <Routes>
           <Route path="/movie/:id" element={<Movie />} />
-          <Route path="/favoriteMovies" element={<FavoriteMovies />} />
+          {user && <Route path="/favoriteMovies" element={<FavoriteMovies />} />}
           <Route path="/search/:movieName" element={<SearchMovies />} />
           <Route path="/" element={<RecommendationMovies />} />
           <Route path="/*" element={<FourOFour />} />

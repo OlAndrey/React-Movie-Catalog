@@ -8,6 +8,9 @@ import Loader from "../Loader/Loader";
 import { fetchRecomensList, fetchMovieList, updateRecomensList } from "../../store/action-creators/moviesListActionCreators";
 import { AppStatetype } from "../../store/reducers";
 import MovieList from '../MovieList/MovieList';
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+
 
 type MapStatePropsType = { 
   isLoading: boolean 
@@ -28,14 +31,9 @@ type RecommendationMoviesPropsType = MapStatePropsType & MapDispatchPropsType
 
 const useStyles = makeStyles({ 
   grid: {
-    position: "absolute",
-    left: 0,
     width: "100%",
     flexGrow: 1,
-    height: "1px",
-    minHeight: "100%",
     marginBottom: "40px",
-    overflow: "auto",
   }
 })
   
@@ -46,6 +44,16 @@ const RecommendationMovies: React.FC<RecommendationMoviesPropsType> = ({isLoadin
     const moviesMemo = useMemo(() => movies, [movies]);
     const classes = useStyles();  
   
+    useEffect(() => {
+      fetchRecomensList()
+    }, []);
+
+    useEffect(() => {
+      if(currentPage)
+        document.addEventListener("scroll", scrollHandler);
+      return () => document.removeEventListener('scroll', scrollHandler)
+    }, [currentPage, isLoadingUpdate])
+
     const handleFilterChange = (filter: string) => {
       const genreId = Number(filter);
       if(selectGenre !== genreId){
@@ -57,11 +65,11 @@ const RecommendationMovies: React.FC<RecommendationMoviesPropsType> = ({isLoadin
       }
     }
 
-    const scrollHandler = (event: React.UIEvent<HTMLDivElement> ) => {
-      const containerHeight = event.currentTarget.clientHeight;
-      const scrollHeight = event.currentTarget.scrollHeight;
+    const scrollHandler = (event: Event ) => {
+      const containerHeight = document.documentElement.clientHeight;
+      const scrollHeight = document.documentElement.scrollHeight;
   
-      const scrollTop = event.currentTarget.scrollTop;
+      const scrollTop = document.documentElement.scrollTop;
       const currentPosition = ((scrollTop + containerHeight) / scrollHeight) * 100;
       if(!(currentPosition < 99) && currentPage !== totalPages && !isLoadingUpdate){
         if(+byGenreTypeId > 0)
@@ -71,21 +79,15 @@ const RecommendationMovies: React.FC<RecommendationMoviesPropsType> = ({isLoadin
       }
     }
 
-    useEffect(() => {
-      fetchRecomensList()
-    }, []);
-
     return (
-      <div className={classes.grid} onScroll={scrollHandler}>
-        <Container>
-            <GenreFilter changeFilter={handleFilterChange} />
-            {
-              isLoading
-                ?<Loader />
-                :<MovieList movies={moviesMemo} />
-            }
-        </Container>
-      </div>
+      <Container fixed className={classes.grid}>
+          <GenreFilter changeFilter={handleFilterChange} />
+          {
+            isLoading
+              ?<Loader />
+              :<MovieList movies={moviesMemo} />
+          }
+      </Container>
     )
 }
 
