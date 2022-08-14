@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import '../../styles/menu.css';
 import {
@@ -121,18 +123,13 @@ const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
               Movie Catalog
             </Link>
           </Typography>
-          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
             <input id="menu-toggle" type="checkbox" />
             <label className="menu-button-container" htmlFor="menu-toggle">
-              <div
-                className="menu-button"
-                onFocus={() => setOpenMenu(!openMenu)}
-                role="button"
-                aria-label="mobile-menu-see"
-              />
+              <div className="menu-button" onClick={() => setOpenMenu(!openMenu)} />
             </label>
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>{menu}</Box>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>{menu}</Box>
         </Toolbar>
         <div
           style={{
