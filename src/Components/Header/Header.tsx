@@ -28,6 +28,8 @@ type MapStatePropsType = { user: UserType };
 type MapDispatchPropsType = { logoutUser: () => void };
 type HeaderPropsType = MapStatePropsType & MapDispatchPropsType;
 
+export type formValues = { search: string };
+
 const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -46,9 +48,13 @@ const Header: React.FC<HeaderPropsType> = ({ user, logoutUser }) => {
     setOpen(false);
   };
 
+  const handler = ({ search }: formValues) => {
+    navigate(`/search/${search}`, { replace: true });
+  };
+
   const menu = (
     <>
-      <Search />
+      <Search onSubmit={handler} />
       {user ? (
         <div>
           <IconButton

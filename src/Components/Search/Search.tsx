@@ -1,31 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from 'react-router-dom';
+import { Field, InjectedFormProps, reduxForm, WrappedFieldProps } from 'redux-form';
 import { SearchBlock, SearchIconWrapper, StyledInputBase } from './SearchStyle';
 
-const Search = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const navigate = useNavigate();
+type formValues = { search: string };
 
-  const handler = () => {
-    navigate(`/search/${searchValue}`, { replace: true });
-    setSearchValue('');
-  };
-
+const renderTextField: React.FC<WrappedFieldProps> = ({ input }) => {
   return (
-    <SearchBlock>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-        onKeyDown={(ev) => ev.key === 'Enter' && handler()}
-      />
-    </SearchBlock>
+    <StyledInputBase
+      placeholder="Search…"
+      id={input.name}
+      margin="dense"
+      inputProps={{ ...input }}
+    />
   );
 };
 
-export default Search;
+const Search: React.FC<InjectedFormProps<formValues>> = ({ handleSubmit, reset }) => {
+  const handler: React.FormEventHandler<HTMLFormElement> = (e) => {
+    handleSubmit(e);
+    reset();
+  };
+
+  return (
+    <form onSubmit={handler}>
+      <SearchBlock>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <Field name="search" component={renderTextField} label="Search" />
+      </SearchBlock>
+    </form>
+  );
+};
+
+export default reduxForm<formValues>({
+  form: 'Search',
+})(Search);

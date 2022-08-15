@@ -43,7 +43,7 @@ type ownPropsType = {
 const Login: React.FC<InjectedFormProps<formValues, ownPropsType> & ownPropsType> = (props) => {
   const { handleSubmit, registry, handleClose, isRegistry, pristine, submitting } = props;
   return (
-    <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+    <form onSubmit={handleSubmit}>
       <DialogTitle id="form-dialog-title" textAlign="center">
         Log in
       </DialogTitle>

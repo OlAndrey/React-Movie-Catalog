@@ -55,6 +55,6 @@ const Registration: React.FC<InjectedFormProps<formValues, ownPropsType> & ownPr
 };
 
 export default reduxForm<formValues, ownPropsType>({
-  form: 'Regystry', // a unique identifier for this form
+  form: 'Registration', // a unique identifier for this form
   validate,
 })(Registration);
