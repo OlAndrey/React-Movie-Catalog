@@ -1,25 +1,7 @@
+/* eslint-disable func-names */
 import { Dispatch } from 'redux';
 import { auth } from '../../firebase';
-import { AuthActionsTypes, AuthActionType } from '../../types/Auth';
-
-export const createUser = (name: string, email: string, password: string) => {
-  const thunk = async (dispatch: Dispatch<AuthActionType>) => {
-    try {
-      dispatch({ type: AuthActionsTypes.CHECK });
-      const dataFromServer = await auth.createUserWithEmailAndPassword(email, password);
-      if (dataFromServer.user) {
-        dataFromServer.user.updateProfile({
-          displayName: name,
-        });
-      }
-      dispatch({ type: AuthActionsTypes.UPDATE_AUTH, payload: null });
-    } catch (error) {
-      dispatch({ type: AuthActionsTypes.UPDATE_IS_AUTH_ERROR });
-      console.error(`Failed to create new user, ${error}`);
-    }
-  };
-  return thunk;
-};
+import { AuthActionsTypes, AuthActionType, UserType } from '../../types/Auth';
 
 export const checkAuthUser = () => {
   const thunk = async (dispatch: Dispatch<AuthActionType>) => {
@@ -31,20 +13,6 @@ export const checkAuthUser = () => {
     } catch (error) {
       dispatch({ type: AuthActionsTypes.UPDATE_IS_AUTH_ERROR });
       console.error(`Failed to check authorization, ${error}`);
-    }
-  };
-  return thunk;
-};
-
-export const loginUser = (email: string, password: string) => {
-  const thunk = async (dispatch: Dispatch<AuthActionType>) => {
-    try {
-      dispatch({ type: AuthActionsTypes.CHECK });
-      const dataFromServer = await auth.signInWithEmailAndPassword(email, password);
-      dispatch({ type: AuthActionsTypes.UPDATE_AUTH, payload: dataFromServer.user });
-    } catch (error) {
-      dispatch({ type: AuthActionsTypes.UPDATE_IS_AUTH_ERROR });
-      console.error(`Failed to login, ${error}`);
     }
   };
   return thunk;
@@ -62,4 +30,23 @@ export const logoutUser = () => {
     }
   };
   return thunk;
+};
+
+export const checking = () => {
+  return {
+    type: AuthActionsTypes.CHECK,
+  };
+};
+
+export const isAuthError = () => {
+  return {
+    type: AuthActionsTypes.UPDATE_IS_AUTH_ERROR,
+  };
+};
+
+export const updateAuth = (payload: UserType) => {
+  return {
+    type: AuthActionsTypes.UPDATE_AUTH,
+    payload,
+  };
 };

@@ -7,23 +7,7 @@ export type AuthType = {
   handleClose: () => void;
 };
 
-export interface ILogin {
-  emailInputError: string;
-  passwordInputError: string;
-  handleForm: (a: string, b: string) => void;
-  clearError: (value: 'emailInputError' | 'passwordInputError') => void;
-  registry: () => void;
-  handleClose: () => void;
-}
-
-export interface IRegistry {
-  nameInputError: string;
-  emailInputError: string;
-  passwordInputError: string;
-  handleForm: (email: string, password: string, name: string) => void;
-  clearError: (value: 'emailInputError' | 'passwordInputError' | 'nameInputError') => void;
-  handleClose: () => void;
-}
+export type formValues = { name: string; password: string; email: string };
 
 export enum AuthActionsTypes {
   CHECK = 'CHECK_LOADING',

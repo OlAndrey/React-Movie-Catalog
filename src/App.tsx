@@ -35,7 +35,7 @@ const App: React.FC<AppPropsType> = ({
 }) => {
   useEffect(() => {
     if (isCheckAuth) checkAuthUser();
-    else if (user) {
+    if (user) {
       getFavoriteMovies(user.uid);
     } else {
       clearFavoriteMovies();

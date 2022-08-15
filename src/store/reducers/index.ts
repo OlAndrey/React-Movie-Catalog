@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import { authReducer } from './authReducers';
 import { favoriteMoviesReducers } from './favoriteMovies';
 import { movieListReducers } from './movieListReducers';
@@ -11,6 +12,7 @@ export const rootReducer = combineReducers({
   trailer: trailerReducers,
   recommendList: recommendationMovieListReducers,
   favoriteMovies: favoriteMoviesReducers,
+  form: formReducer,
 });
 
 export type AppStatetype = ReturnType<typeof rootReducer>;

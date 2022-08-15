@@ -1,15 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Field, reduxForm, InjectedFormProps, WrappedFieldProps } from 'redux-form';
-import {
-  Alert,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-} from '@mui/material';
+import { Button, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import validate from '../../helpers/validateForm';
 import { formValues } from '../../types/Auth';
 
@@ -34,34 +26,28 @@ const renderTextField: React.FC<renderTextFieldType> = ({
   );
 };
 
-type ownPropsType = {
-  isRegistry: boolean;
-  registry: () => void;
-  handleClose: () => void;
-};
+type ownPropsType = { handleClose: () => void };
 
-const Login: React.FC<InjectedFormProps<formValues, ownPropsType> & ownPropsType> = (props) => {
-  const { handleSubmit, registry, handleClose, isRegistry, pristine, submitting } = props;
+const Registration: React.FC<InjectedFormProps<formValues, ownPropsType> & ownPropsType> = (
+  props
+) => {
+  const { handleSubmit, handleClose, pristine, submitting } = props;
   return (
     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
       <DialogTitle id="form-dialog-title" textAlign="center">
-        Log in
+        Registration
       </DialogTitle>
-      {isRegistry && <Alert severity="success">Your account has been registered!</Alert>}
       <DialogContent>
+        <Field name="name" component={renderTextField} label="Name" />
         <Field name="email" component={renderTextField} label="Email" />
         <Field name="password" component={renderTextField} label="Password" />
-        <DialogContentText sx={{ display: 'inline-block' }}>
-          Don&apos;t have account?
-        </DialogContentText>
-        <Button onClick={registry}>Click Here!</Button>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={handleClose} disabled={submitting}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" disabled={pristine || submitting}>
-          Log in
+          Registry
         </Button>
       </DialogActions>
     </form>
@@ -69,6 +55,6 @@ const Login: React.FC<InjectedFormProps<formValues, ownPropsType> & ownPropsType
 };
 
 export default reduxForm<formValues, ownPropsType>({
-  form: 'Login', // a unique identifier for this form
+  form: 'Regystry', // a unique identifier for this form
   validate,
-})(Login);
+})(Registration);
