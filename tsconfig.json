@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -25,6 +25,7 @@
     "jsx": "preserve"
   },
   "include": [
-    "src"
+    "src/**/*",
+    "package.json"
   ]
 }
