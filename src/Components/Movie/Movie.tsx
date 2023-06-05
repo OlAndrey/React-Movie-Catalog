@@ -9,7 +9,7 @@ import Loader from '../Loader/Loader';
 import { setTrailerId } from '../../store/thunk-creators/trailerThunkCreators';
 import { fetchRecommendationListById } from '../../store/thunk-creators/recommendationMoviesThunkCreators';
 import MovieList from '../MovieList/MovieList';
-import { updateFavoriteMovies } from '../../store/actions/favoriteMoviesAction';
+import { updateFavoriteMovies } from '../../store/thunk-creators/favoriteMoviesThunkCreators';
 import { UserType } from '../../types/Auth';
 import { currentMovieToMovies } from '../../helpers/helpersFunctions';
 import MovieBody from './MovieBody';

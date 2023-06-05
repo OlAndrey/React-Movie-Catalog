@@ -7,8 +7,7 @@ export const setTrailerId = (movieId: string) => {
   const thunk = async (dispatch: Dispatch<TrailerType>) => {
     try {
       const dataFromServer = await fetchTrailerId(movieId);
-
-      dispatch(setTrailer(dataFromServer.data.result));
+      dispatch(setTrailer(dataFromServer.data.results));
     } catch (error) {
       console.error(`Can't proceed fetch trailer id, ${error}`);
     }

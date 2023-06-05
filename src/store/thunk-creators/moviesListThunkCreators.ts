@@ -51,7 +51,7 @@ export const setSearchList = (name: string) => {
 
     try {
       const dataFromServer = await fetchSearchMovies(name);
-      dispatch(setSearchMovies(dataFromServer.data.result));
+      dispatch(setSearchMovies(dataFromServer.data.results));
     } catch (error) {
       console.error(`Can't proceed fetch movie list, ${error}`);
 

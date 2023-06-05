@@ -18,7 +18,7 @@ import { IMovies } from '../../types/movieList';
 import { genres } from '../../helpers/const';
 import { useMovieStyles } from './MovieStyle';
 import { AppStatetype } from '../../store/reducers';
-import { updateFavoriteMovies } from '../../store/actions/favoriteMoviesAction';
+import { updateFavoriteMovies } from '../../store/thunk-creators/favoriteMoviesThunkCreators';
 import { UserType } from '../../types/Auth';
 
 type MapStatePropsType = { isLoading: boolean; favoriteMovies: IMovies[] };
