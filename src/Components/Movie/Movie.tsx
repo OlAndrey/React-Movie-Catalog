@@ -6,8 +6,8 @@ import { setSelectMovie } from '../../store/thunk-creators/moviesListThunkCreato
 import { AppStatetype } from '../../store/reducers';
 import { ICurent, IMovies } from '../../types/movieList';
 import Loader from '../Loader/Loader';
-import { setTrailerId } from '../../store/actions/trailerActionCreators';
-import { fetchRecommendationListById } from '../../store/actions/recommendationMoviesActionCreator';
+import { setTrailerId } from '../../store/thunk-creators/trailerThunkCreators';
+import { fetchRecommendationListById } from '../../store/thunk-creators/recommendationMoviesThunkCreators';
 import MovieList from '../MovieList/MovieList';
 import { updateFavoriteMovies } from '../../store/actions/favoriteMoviesAction';
 import { UserType } from '../../types/Auth';

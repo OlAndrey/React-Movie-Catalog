@@ -1,6 +1,4 @@
-import { Dispatch } from 'redux';
 import { ITrailerSearch, TrailerActionsTypes, TrailerType } from '../../types/trailer';
-import { fetchTrailerId } from '../API/fetchTrailerId';
 
 const trailerSearch = (data: ITrailerSearch[]) => {
   if (data.length === 0) {
@@ -13,19 +11,7 @@ const trailerSearch = (data: ITrailerSearch[]) => {
   return data[0].key;
 };
 
-export const setTrailerId = (movieId: string) => {
-  const thunk = async (dispatch: Dispatch<TrailerType>) => {
-    try {
-      const dataFromServer = await fetchTrailerId(movieId);
-
-      dispatch({
-        type: TrailerActionsTypes.SET_TRAILER,
-        trailerId: trailerSearch(dataFromServer.data.results),
-      });
-    } catch (error) {
-      console.error(`Can't proceed fetch trailer id, ${error}`);
-    }
-  };
-
-  return thunk;
-};
+export const setTrailer = (trailerData: ITrailerSearch[]): TrailerType => ({
+  type: TrailerActionsTypes.SET_TRAILER,
+  trailerId: trailerSearch(trailerData)
+});

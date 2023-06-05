@@ -14,8 +14,8 @@ export const fetchRecomensList = () => {
 
     try {
       const dataFromServer = await fetchRecomends();
-      const { result, page, total_pages } = dataFromServer.data
-      dispatch(setMovies(result, page, total_pages));
+      const { results, page, total_pages } = dataFromServer.data
+      dispatch(setMovies(results, page, total_pages));
       dispatch(setGenreTypeById('0'));
     } catch (error) {
       console.error(`Can't proceed fetch movie list, ${error}`);
@@ -33,8 +33,8 @@ export const updateRecomensList = (pageNumber: number) => {
 
     try {
       const dataFromServer = await fetchRecomends(pageNumber);
-      const { result, page, total_pages } = dataFromServer.data
-      dispatch(updateMovies(result, page, total_pages));
+      const { results, page, total_pages } = dataFromServer.data
+      dispatch(updateMovies(results, page, total_pages));
     } catch (error) {
       console.error(`Can't proceed fetch movie list, ${error}`);
 
@@ -85,12 +85,12 @@ export const fetchMovieList = (genreId: number, pageNum = 1) => {
 
     try {
       const dataFromServer = await fetchMoviesWithGenre(genreId, pageNum);
-      const { result, page, total_pages } = dataFromServer.data
+      const { results, page, total_pages } = dataFromServer.data
       if (page === 1) {
-        dispatch(setMovies(result, page, total_pages));
+        dispatch(setMovies(results, page, total_pages));
         dispatch(setGenreTypeById(String(genreId)))
       } else
-        dispatch(updateMovies(result, page, total_pages));
+        dispatch(updateMovies(results, page, total_pages));
     } catch (error) {
       console.error(`Can't proceed fetch movie list, ${error}`);
 
