@@ -9,7 +9,7 @@ import {
   fetchRecomensList,
   fetchMovieList,
   updateRecomensList,
-} from '../../store/action-creators/moviesListActionCreators';
+} from '../../store/thunk-creators/moviesListThunkCreators';
 import { AppStatetype } from '../../store/reducers';
 import MovieList from '../MovieList/MovieList';
 

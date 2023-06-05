@@ -6,7 +6,7 @@ import { SubmissionError } from 'redux-form';
 import Registration from './Registration';
 import { AuthType, UserType, formValues } from '../../types/Auth';
 import { AppStatetype } from '../../store/reducers';
-import { checking, isAuthError, updateAuth } from '../../store/action-creators/authActionCreators';
+import { checking, isAuthError, updateAuth } from '../../store/actions/authAction';
 import { auth } from '../../firebase';
 import Login from './Login';
 

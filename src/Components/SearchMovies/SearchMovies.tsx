@@ -3,7 +3,7 @@ import { Container, Typography } from '@mui/material';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppStatetype } from '../../store/reducers';
-import { setSearchList } from '../../store/action-creators/moviesListActionCreators';
+import { setSearchList } from '../../store/thunk-creators/moviesListThunkCreators';
 import { IMovies } from '../../types/movieList';
 import Loader from '../Loader/Loader';
 import MovieList from '../MovieList/MovieList';
