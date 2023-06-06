@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import Search from '../Search/search';
 import Auth from '../Auth/Auth';
 import { AppStatetype } from '../../store/reducers';
-import { logoutUser } from '../../store/actions/authAction';
+import { logoutUser } from '../../store/thunk-creators/authThunkCreators';
 import { UserType } from '../../types/Auth';
 
 type MapStatePropsType = { user: UserType };

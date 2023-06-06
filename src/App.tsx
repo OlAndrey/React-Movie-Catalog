@@ -7,11 +7,9 @@ import Loader from './Components/Loader/Loader';
 import Movie from './Components/Movie/Movie';
 import FourOFour from './Components/Page404/Page404';
 import SearchMovies from './Components/SearchMovies/SearchMovies';
-import { checkAuthUser } from './store/actions/authAction';
-import {
-  getFavoriteMovies,
-  clearFavoriteMovies,
-} from './store/actions/favoriteMoviesAction';
+import { checkAuthUser } from './store/thunk-creators/authThunkCreators';
+import { clearFavoriteMovies } from './store/actions/favoriteMoviesAction';
+import { getFavoriteMovies } from './store/thunk-creators/favoriteMoviesThunkCreators';
 import { AppStatetype } from './store/reducers';
 import { UserType } from './types/Auth';
 import RecommendationMovies from './Components/RecommendationMovies/RecommendationMovies';
