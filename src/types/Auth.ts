@@ -1,6 +1,6 @@
-import firebase from 'firebase/compat/app';
+import { User } from 'firebase/auth';
 
-export type UserType = firebase.User | null;
+export type UserType = User | null;
 
 export type AuthType = {
   open: boolean;

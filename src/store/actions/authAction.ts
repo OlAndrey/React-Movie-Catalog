@@ -11,19 +11,6 @@ export const checkUserData = (user: UserType): AuthActionType => ({
   payload: user,
 });
 
-export const updateUserData = (): AuthActionType => ({
-  type: AuthActionsTypes.UPDATE_AUTH,
-  payload: null,
-});
-
-export const checking = (): AuthActionType => ({
-  type: AuthActionsTypes.CHECK,
-});
-
-export const isAuthError = (): AuthActionType => ({
-  type: AuthActionsTypes.UPDATE_IS_AUTH_ERROR,
-});
-
 export const updateAuth = (payload: UserType): AuthActionType => ({
   type: AuthActionsTypes.UPDATE_AUTH,
   payload,

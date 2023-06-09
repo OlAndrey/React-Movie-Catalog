@@ -6,15 +6,16 @@ import { SubmissionError } from 'redux-form';
 import Registration from './Registration';
 import { AuthType, UserType, formValues } from '../../types/Auth';
 import { AppStatetype } from '../../store/reducers';
-import { checking, isAuthError, updateAuth } from '../../store/actions/authAction';
+import { checkAuth, updateAuthError, updateAuth } from '../../store/actions/authAction';
 import { auth } from '../../firebase';
 import Login from './Login';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 type MapStatePropsType = { isCheck: boolean; isError: boolean };
 
 type MapDispatchPropsType = {
-  checking: () => void;
-  isAuthError: () => void;
+  checkAuth: () => void;
+  updateAuthError: (payload: UserType) => void;
   updateAuth: (payload: UserType) => void;
 };
 
@@ -23,7 +24,7 @@ type OwnPropsType = AuthType & { user: UserType };
 type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType;
 
 const Auth: React.FC<PropsType> = (props) => {
-  const { open, isCheck, isError, user, handleClose, checking, isAuthError, updateAuth } = props;
+  const { open, isCheck, isError, user, handleClose, checkAuth, updateAuthError, updateAuth } = props;
   const [isNewUser, setIsNewUser] = useState<boolean>(false);
   const [isRegistry, setIsRegistry] = useState<boolean>(false);
 
@@ -51,16 +52,16 @@ const Auth: React.FC<PropsType> = (props) => {
           _error: 'Registry failed!',
         });
       }
-      checking();
-      const dataFromServer = await auth.createUserWithEmailAndPassword(email, password);
+      checkAuth();
+      const dataFromServer = await createUserWithEmailAndPassword(auth, email, password);
       if (dataFromServer.user) {
-        dataFromServer.user.updateProfile({
+        updateProfile(dataFromServer.user, {
           displayName: name,
         });
       }
       updateAuth(null);
     } catch (error) {
-      isAuthError();
+      updateAuthError(null);
       throw new SubmissionError({
         email: 'The email address is already in use by another account',
         _error: 'Registry failed!',
@@ -70,11 +71,11 @@ const Auth: React.FC<PropsType> = (props) => {
 
   async function login({ password, email }: formValues) {
     try {
-      checking();
-      const dataFromServer = await auth.signInWithEmailAndPassword(email, password);
+      checkAuth();
+      const dataFromServer = await signInWithEmailAndPassword(auth, email, password);
       updateAuth(dataFromServer.user);
     } catch (error) {
-      isAuthError();
+      updateAuthError(null);
       throw new SubmissionError({
         password: 'Email or password is incorrect!!!',
         email: 'Email or password is incorrect!!!',
@@ -108,5 +109,5 @@ const mapStateToProps = (state: AppStatetype): MapStatePropsType => {
 
 export default connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStatetype>(
   mapStateToProps,
-  { checking, isAuthError, updateAuth }
+  { checkAuth, updateAuthError, updateAuth }
 )(Auth);

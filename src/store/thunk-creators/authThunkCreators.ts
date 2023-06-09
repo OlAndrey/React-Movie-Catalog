@@ -1,14 +1,15 @@
 /* eslint-disable func-names */
 import { Dispatch } from 'redux';
 import { auth } from '../../firebase';
-import { checkAuth, checkUserData, updateAuthError, updateUserData } from '../actions/authAction';
+import { checkAuth, checkUserData, updateAuth, updateAuthError } from '../actions/authAction';
 import { AuthActionType } from '../../types/Auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export const checkAuthUser = () => {
   const thunk = async (dispatch: Dispatch<AuthActionType>) => {
     try {
       dispatch(checkAuth());
-      auth.onAuthStateChanged(function (user) {
+      onAuthStateChanged(auth, (user) => {
         dispatch(checkUserData(user));
       });
     } catch (error) {
@@ -22,8 +23,8 @@ export const checkAuthUser = () => {
 export const logoutUser = () => {
   const thunk = async (dispatch: Dispatch<AuthActionType>) => {
     try {
-      await auth.signOut();
-      dispatch(updateUserData());
+      await signOut(auth);
+      dispatch(updateAuth(null));
       dispatch(checkAuth());
     } catch (error) {
       dispatch(updateAuthError());
