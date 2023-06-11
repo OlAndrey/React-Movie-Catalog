@@ -19,12 +19,12 @@ export const recommendationMovieListReducers = (
       return {
         ...state,
         isLoading: true,
-        isError: true,
+        isError: false,
       };
     case RecommendMoviesActionsTypes.UPDATE_RECOMENDS_MOVIES:
       return {
         isLoading: false,
-        isError: true,
+        isError: false,
         recommendMovies: action.payload,
       };
 

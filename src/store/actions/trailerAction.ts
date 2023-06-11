@@ -2,7 +2,7 @@ import { ITrailerSearch, TrailerActionsTypes, TrailerType } from '../../types/tr
 
 const trailerSearch = (data: ITrailerSearch[]) => {
   if (data.length === 0) {
-    return 'None trayler';
+    return 'None trailer';
   }
   const arr = data.filter((i) => i.name === 'Official Trailer');
   if (arr.length > 0) {
