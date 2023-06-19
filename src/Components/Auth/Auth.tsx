@@ -9,7 +9,11 @@ import { AppStatetype } from '../../store/reducers';
 import { checkAuth, updateAuthError, updateAuth } from '../../store/actions/authAction';
 import { auth } from '../../firebase';
 import Login from './Login';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 
 type MapStatePropsType = { isCheck: boolean; isError: boolean };
 
@@ -24,7 +28,8 @@ type OwnPropsType = AuthType & { user: UserType };
 type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType;
 
 const Auth: React.FC<PropsType> = (props) => {
-  const { open, isCheck, isError, user, handleClose, checkAuth, updateAuthError, updateAuth } = props;
+  const { open, isCheck, isError, user, handleClose, checkAuth, updateAuthError, updateAuth } =
+    props;
   const [isNewUser, setIsNewUser] = useState<boolean>(false);
   const [isRegistry, setIsRegistry] = useState<boolean>(false);
 

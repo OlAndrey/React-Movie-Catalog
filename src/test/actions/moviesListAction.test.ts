@@ -1,5 +1,5 @@
 import {
-    setGenreTypeById,
+  setGenreTypeById,
   setLoadingMoviesData,
   setLoadingUpdateMoviesData,
   setMovies,
@@ -7,7 +7,13 @@ import {
   setSearchMovies,
   updateMovies,
 } from '../../store/actions/moviesListAction';
-import { IMovies, IPopular,  MoviesActionsTypes } from '../../types/movieList';
+import { IMovies, IPopular, MoviesActionsTypes } from '../../types/movieList';
+
+interface Movies {
+  payload: IMovies[];
+  currentPage?: number;
+  totalPages?: number;
+}
 
 const movies: IPopular[] = [
   {
@@ -62,9 +68,13 @@ describe('Get Movie List', () => {
   });
 
   it('Should return an object containing the action and payload with the movie list', () => {
+    interface SetMovies extends Movies {
+      type: MoviesActionsTypes.SET_MOVIES;
+    }
+
     const pageNum = 1;
     const totalPages = 10;
-    const response = setMovies(movies, pageNum, totalPages);
+    const response = setMovies(movies, pageNum, totalPages) as SetMovies;
 
     expect(response.type).toEqual(MoviesActionsTypes.SET_MOVIES);
     expect(response.payload).toEqual(resMovies);
@@ -73,9 +83,13 @@ describe('Get Movie List', () => {
   });
 
   it('Should return an object that contains the action and payload with the updated movie list', () => {
+    interface UpdateMovies extends Movies {
+      type: MoviesActionsTypes.UPDATE_MOVIES;
+    }
+
     const pageNum = 1;
     const totalPages = 10;
-    const response = updateMovies(movies, pageNum, totalPages);
+    const response = updateMovies(movies, pageNum, totalPages) as UpdateMovies;
 
     expect(response.type).toEqual(MoviesActionsTypes.UPDATE_MOVIES);
     expect(response.payload).toEqual(resMovies);
@@ -84,15 +98,23 @@ describe('Get Movie List', () => {
   });
 
   it('Should return an object that contains an action and a payload with a list of search movies', () => {
-    const response = setSearchMovies(movies);
+    interface SetSearchMovies extends Movies {
+      type: MoviesActionsTypes.SET_SEARCH_MOVIES;
+    }
+    const response = setSearchMovies(movies) as SetSearchMovies;
 
     expect(response.type).toEqual(MoviesActionsTypes.SET_SEARCH_MOVIES);
     expect(response.payload).toEqual(resMovies);
   });
 
   it('Must return an object containing an action and a payload with a genre type identifier.', () => {
+    interface SetByGenreTypeId {
+      type: MoviesActionsTypes.SET_BY_GENRE_TYPE_ID;
+      payload: string;
+    }
+
     const genreTypeId = '1';
-    const response = setGenreTypeById(genreTypeId);
+    const response = setGenreTypeById(genreTypeId) as SetByGenreTypeId;
 
     expect(response.type).toEqual(MoviesActionsTypes.SET_BY_GENRE_TYPE_ID);
     expect(response.payload).toEqual(genreTypeId);

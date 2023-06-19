@@ -13,5 +13,5 @@ const trailerSearch = (data: ITrailerSearch[]) => {
 
 export const setTrailer = (trailerData: ITrailerSearch[]): TrailerType => ({
   type: TrailerActionsTypes.SET_TRAILER,
-  trailerId: trailerSearch(trailerData)
+  trailerId: trailerSearch(trailerData),
 });

@@ -3,7 +3,11 @@ import { ref, set, child, get } from 'firebase/database';
 import { FavoriteMoviesActionType } from '../../types/favoriteMovies';
 import { database } from '../../firebase';
 import { IMovies } from '../../types/movieList';
-import { setFavoriteMovies, setFavoriteMoviesError, setLoadingFavoriteMovies } from '../actions/favoriteMoviesAction';
+import {
+  setFavoriteMovies,
+  setFavoriteMoviesError,
+  setLoadingFavoriteMovies,
+} from '../actions/favoriteMoviesAction';
 
 export const getFavoriteMovies = (userId: string) => {
   const thunk = async (dispatch: Dispatch<FavoriteMoviesActionType>) => {

@@ -14,7 +14,7 @@ export const setFavoriteMovies = (favoriteMovies: IMovies[]): FavoriteMoviesActi
   payload: favoriteMovies,
 });
 
-export const clearFavoriteMovies = (): FavoriteMoviesActionType=> ({
+export const clearFavoriteMovies = (): FavoriteMoviesActionType => ({
   type: FavoriteMoviesActionsTypes.CLEAR_FAVORITE_MOVIES,
   payload: [],
 });

@@ -13,14 +13,22 @@ export const setMoviesError = (): MoviesActionType => ({
   type: MoviesActionsTypes.UPDATE_IS_MOVIES_ERROR,
 });
 
-export const setMovies = (data: IPopular[], page: number, total_pages: number): MoviesActionType => ({
+export const setMovies = (
+  data: IPopular[],
+  page: number,
+  total_pages: number
+): MoviesActionType => ({
   type: MoviesActionsTypes.SET_MOVIES,
   payload: filterMovies(data),
   currentPage: page,
   totalPages: total_pages,
 });
 
-export const updateMovies = (data: IPopular[], page: number, total_pages: number): MoviesActionType => ({
+export const updateMovies = (
+  data: IPopular[],
+  page: number,
+  total_pages: number
+): MoviesActionType => ({
   type: MoviesActionsTypes.UPDATE_MOVIES,
   payload: filterMovies(data),
   currentPage: page,
@@ -30,7 +38,7 @@ export const updateMovies = (data: IPopular[], page: number, total_pages: number
 export const setSearchMovies = (movies: IPopular[]): MoviesActionType => ({
   type: MoviesActionsTypes.SET_SEARCH_MOVIES,
   payload: filterMovies(movies),
-})
+});
 
 export const setGenreTypeById = (id: string): MoviesActionType => ({
   type: MoviesActionsTypes.SET_BY_GENRE_TYPE_ID,
@@ -40,4 +48,4 @@ export const setGenreTypeById = (id: string): MoviesActionType => ({
 export const selectMovie = (movieData: ICurent): MoviesActionType => ({
   type: MoviesActionsTypes.SELECT_MOVIE,
   payload: filterMovie(movieData),
-})
+});

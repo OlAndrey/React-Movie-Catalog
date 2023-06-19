@@ -52,7 +52,9 @@
   "rules": {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-loss-of-precision": "error",
+    "camelcase": 0,
     "default-param-last": 0,
     "no-unused-vars": "off",
     "no-shadow": "off",

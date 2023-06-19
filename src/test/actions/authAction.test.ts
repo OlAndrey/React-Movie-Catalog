@@ -1,5 +1,10 @@
-import { checkAuth, checkUserData, updateAuth, updateAuthError } from "../../store/actions/authAction";
-import { AuthActionsTypes } from "../../types/Auth";
+import {
+  checkAuth,
+  checkUserData,
+  updateAuth,
+  updateAuthError,
+} from '../../store/actions/authAction';
+import { AuthActionsTypes, UserType } from '../../types/Auth';
 
 describe('Get Auth', () => {
   it('Should return an object that contains the type to check authorization', () => {
@@ -15,14 +20,24 @@ describe('Get Auth', () => {
   });
 
   it('Should return an object containing the type and the payload for the authorization check', () => {
-    const response = checkUserData(null);
+    interface CheckAuth {
+      type: AuthActionsTypes.CHECK_AUTH;
+      payload: UserType;
+    }
+
+    const response = checkUserData(null) as CheckAuth;
 
     expect(response.type).toEqual(AuthActionsTypes.CHECK_AUTH);
     expect(response.payload).toEqual(null);
   });
 
   it('Should return an object containing the type and the payload to change the authorization data', () => {
-    const response = updateAuth(null);
+    interface UpdateAuth {
+      type: AuthActionsTypes.UPDATE_AUTH;
+      payload: UserType;
+    }
+
+    const response = updateAuth(null) as UpdateAuth;
 
     expect(response.type).toEqual(AuthActionsTypes.UPDATE_AUTH);
     expect(response.payload).toEqual(null);

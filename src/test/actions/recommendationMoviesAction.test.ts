@@ -4,7 +4,7 @@ import {
   setRecomendsError,
   updateRecomendsList,
 } from '../../store/actions/recommendationMoviesAction';
-import { IPopular } from '../../types/movieList';
+import { IMovies, IPopular } from '../../types/movieList';
 import { RecommendMoviesActionsTypes } from '../../types/recommendation';
 
 const movies: IPopular[] = [
@@ -41,7 +41,12 @@ describe('Get Recommendation Movies', () => {
   });
 
   it('Should return an object containing the action and payload with the favorite movies', () => {
-    const response = updateRecomendsList(movies);
+    interface UpdateRecommend {
+      type: RecommendMoviesActionsTypes.UPDATE_RECOMENDS_MOVIES;
+      payload: IMovies[];
+    }
+
+    const response = updateRecomendsList(movies) as UpdateRecommend;
 
     expect(response.type).toEqual(RecommendMoviesActionsTypes.UPDATE_RECOMENDS_MOVIES);
     expect(response.payload).toEqual(filterMovies(movies));

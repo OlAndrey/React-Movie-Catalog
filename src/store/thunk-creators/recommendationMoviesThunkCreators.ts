@@ -1,7 +1,11 @@
 import { Dispatch } from 'redux';
 import { RecommendMoviesActionType } from '../../types/recommendation';
 import { fetchRecommendationById } from '../API/fetchRecomendation';
-import { setLoadingRecomends, setRecomendsError, updateRecomendsList } from '../actions/recommendationMoviesAction';
+import {
+  setLoadingRecomends,
+  setRecomendsError,
+  updateRecomendsList,
+} from '../actions/recommendationMoviesAction';
 
 export const fetchRecommendationListById = (id: string) => {
   const thunk = async (dispatch: Dispatch<RecommendMoviesActionType>) => {
