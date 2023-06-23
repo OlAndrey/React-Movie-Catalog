@@ -1,7 +1,5 @@
-import axios from 'axios';
-
-const apiKey: String = 'b35f53caccfa4398c708083960012136';
+import axios from '../../utils/axios';
 
 export const fetchTrailerId = (movieId: string) => {
-  return axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`);
+  return axios.get(`/movie/${movieId}/videos?api_key=${process.env.REACT_APP_API_KEY}`);
 };

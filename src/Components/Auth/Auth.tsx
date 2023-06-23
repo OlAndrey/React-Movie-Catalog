@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { Dialog } from '@mui/material';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 import Registration from './Registration';
 import { AuthType, UserType, formValues } from '../../types/Auth';
 import { AppStatetype } from '../../store/reducers';
 import { checkAuth, updateAuthError, updateAuth } from '../../store/actions/authAction';
 import { auth } from '../../firebase';
 import Login from './Login';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
 
 type MapStatePropsType = { isCheck: boolean; isError: boolean };
 

@@ -1,9 +1,9 @@
 /* eslint-disable func-names */
 import { Dispatch } from 'redux';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { checkAuth, checkUserData, updateAuth, updateAuthError } from '../actions/authAction';
 import { AuthActionType } from '../../types/Auth';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export const checkAuthUser = () => {
   const thunk = async (dispatch: Dispatch<AuthActionType>) => {
