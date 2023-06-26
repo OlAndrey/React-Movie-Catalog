@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { IMovies } from '../../types/movieList';
 import GenreFilter from '../GenreFilter/GenreFilter';
 import Loader from '../Loader/Loader';
@@ -88,7 +88,15 @@ const RecommendationMovies: React.FC<RecommendationMoviesPropsType> = ({
   return (
     <Container fixed className={classes.grid}>
       <GenreFilter changeFilter={handleFilterChange} />
-      {isLoading ? <Loader /> : <MovieList movies={moviesMemo} />}
+      {isLoading ? (
+        <Loader />
+      ) : moviesMemo.length ? (
+        <MovieList movies={moviesMemo} />
+      ) : (
+        <Typography variant="h4" textAlign="center" margin=".5em 0">
+          Movies not found!
+        </Typography>
+      )}
     </Container>
   );
 };
