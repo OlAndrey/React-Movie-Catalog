@@ -9,13 +9,9 @@ import { authReducer } from '../../store/reducers/authReducers';
 import { auth } from '../../firebase';
 
 const userData = (async function () {
-  const { user } = await signInWithEmailAndPassword(
-    auth,
-    'fortest1@test.com',
-    'Qwertytrewq1'
-  );
+  const { user } = await signInWithEmailAndPassword(auth, 'fortest1@test.com', 'Qwertytrewq1');
   return user;
-}());
+})();
 
 describe('Auth Reducer', () => {
   it('Should return a new state during validation', () => {
@@ -34,7 +30,7 @@ describe('Auth Reducer', () => {
     expect(state.isError).toEqual(true);
   });
 
-  it('Should return a new state when it checks the user\'s authorization', async() => {
+  it("Should return a new state when it checks the user's authorization", async () => {
     const action = checkUserData(await userData);
     const state = authReducer(undefined, action);
 
@@ -53,7 +49,7 @@ describe('Auth Reducer', () => {
     expect(state.currentUser).toEqual(null);
   });
 
-  it('Should return a new state when the user logs in with an account', async() => {
+  it('Should return a new state when the user logs in with an account', async () => {
     const action = updateAuth(await userData);
     const state = authReducer(undefined, action);
 

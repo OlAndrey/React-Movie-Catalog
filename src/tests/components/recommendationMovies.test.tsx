@@ -51,7 +51,8 @@ describe('Recommendation Movies component', () => {
     mockedFetchRecomensList.mockImplementation(() => ({ type: 'test' }));
 
     const mockState = {
-      movieList: Object.assign({}, movieList, {
+      movieList: {
+        ...movieList,
         movies: [
           {
             backdropPath: '/h8gHn0OzBoaefsYseUByqsmEDMY.jpg',
@@ -64,7 +65,7 @@ describe('Recommendation Movies component', () => {
             voteAverage: 7.9,
           },
         ],
-      }),
+      },
       favoriteMovies: {
         isLoading: false,
         isError: false,

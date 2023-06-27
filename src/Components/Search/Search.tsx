@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Field, InjectedFormProps, reduxForm, WrappedFieldProps } from 'redux-form';
-import { SearchBlock, SearchIconWrapper, StyledInputBase } from './searchStyle';
+import { SearchBlock, SearchIconWrapper, StyledInputBase } from './SearchStyle';
 
 type formValues = { search: string };
 

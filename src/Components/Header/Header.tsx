@@ -18,7 +18,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Search from '../Search/search';
+import Search from '../Search/Search';
 import Auth from '../Auth/Auth';
 import { AppStatetype } from '../../store/reducers';
 import { logoutUser } from '../../store/thunk-creators/authThunkCreators';

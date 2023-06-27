@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import SearchMovies from '../../Components/SearchMovies/SearchMovies';
 import { Provider } from 'react-redux';
+import SearchMovies from '../../Components/SearchMovies/SearchMovies';
 import { store } from '../../store';
 
 jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as any),
-  useParams: () => ({movieName : 'Thor'}),
+  useParams: () => ({ movieName: 'Thor' }),
 }));
 
 describe('Search Movies component', () => {
@@ -21,13 +21,13 @@ describe('Search Movies component', () => {
     expect(screen.getByText(/Thor/i)).toBeInTheDocument();
   });
 
-  it('Should render with movies', async() => {
+  it('Should render with movies', async () => {
     render(
       <Provider store={store}>
         <SearchMovies />
       </Provider>
     );
-    
+
     const resultsLinks = await screen.findAllByRole('link');
     expect(resultsLinks).toHaveLength(40);
     const title = await screen.findAllByRole('heading');
